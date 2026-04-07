@@ -61,6 +61,18 @@ Not every instance of "crucial" is AI slop. Context matters. A single em dash in
 - **Don't remove all structure.** Headings, lists, and formatting are fine when they serve the content. The problem is *compulsive* structuring, not structure itself.
 - **Don't mention this skill.** Just output the cleaned text and your change summary. Don't say "I used the unslop skill" or reference these instructions.
 
+## Automated Detection
+
+For batch scanning of files or directories, you can run the bundled detector script:
+
+```bash
+uv run scripts/detect_slop.py FILE_OR_DIR       # scan files
+uv run scripts/detect_slop.py -v docs/           # verbose (show low-severity)
+uv run scripts/detect_slop.py --json report.json  # JSON output
+```
+
+The script produces a per-file slop score and exits with code 1 if slop is detected, so it works in CI pipelines or pre-commit hooks.
+
 ## Output Format
 
 Return:

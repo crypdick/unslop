@@ -1,0 +1,11 @@
+[project]
+name = "unslop"
+version = "0.1.0"
+description = "Detect and clean up AI writing patterns"
+requires-python = ">=3.13"
+dependencies = []
+
+[dependency-groups]
+dev = [
+    "pytest>=9.0.2",
+]
