@@ -340,7 +340,7 @@ class TestDocumentLevelDensity:
         assert has_finding_matching(report, category="vocab_density", message_contains="high")
 
     def test_medium_vocab_density(self):
-        # Sprinkle a few AI words across enough normal text to land in the 1.5-3% band
+        # 1 AI word (meticulous) in ~100 words ≈ 1.0%, in the medium band (0.5-1.5%)
         text = (
             "The team worked hard on the project last quarter. "
             "They used a meticulous approach to testing each component. "
@@ -354,11 +354,12 @@ class TestDocumentLevelDensity:
             "Overall it was a productive quarter for the whole engineering organization."
         )
         report = scan_text(text)
-        # Only 1 AI word (meticulous) in ~100 words ≈ 1.0%
-        # Should not trigger high density
         density_findings = findings_by_category(report, "vocab_density")
+        # Should be medium, not high
         high_density = [f for f in density_findings if f.severity == "high"]
         assert len(high_density) == 0
+        medium_density = [f for f in density_findings if f.severity == "medium"]
+        assert len(medium_density) == 1
 
     def test_clean_text_no_density_finding(self):
         text = (
@@ -381,20 +382,40 @@ class TestDocumentLevelDensity:
         report = scan_text(text)
         assert has_finding_matching(report, category="em_dash_density")
 
-    def test_few_em_dashes_not_flagged(self):
-        # 1 em dash in ~60 words ≈ 1.7/100, well under the 2.0 threshold
+    def test_single_em_dash_in_long_text_not_flagged(self):
+        # 1 em dash in ~200 words ≈ 0.5/100, at the threshold boundary
         text = (
-            "The project — which started in January — was ambitious and well-planned. "
+            "The project started in January and was ambitious from the start. "
             "The team delivered every milestone on schedule and the client was happy with "
             "the result. We learned a lot about the domain and built solid foundations "
             "for the next phase of work. The documentation was thorough and the onboarding "
             "guide made it easy for new contributors to get up to speed quickly without "
             "much help. Feedback from stakeholders was positive. The next phase starts in "
             "March and will focus on scaling the backend to handle more traffic from the "
-            "mobile app which launched last month to strong reviews from users and press."
+            "mobile app which launched last month to strong reviews from users and press. "
+            "The database migration went smoothly and the new schema handles the increased "
+            "load without any issues. We also set up monitoring dashboards that track the "
+            "key performance indicators the product team cares about. The CI pipeline now "
+            "runs in under four minutes, down from twelve — which has made the team much "
+            "more productive during code review cycles. Overall it was a strong quarter "
+            "for the whole engineering organization and we are all looking forward to "
+            "continuing this positive momentum well into the next one. The hiring pipeline "
+            "is also healthy with several strong candidates in the final interview rounds "
+            "for the two open backend positions we posted last month."
         )
         report = scan_text(text)
         assert not has_finding_matching(report, category="em_dash_density")
+
+    def test_few_em_dashes_flagged_at_lower_threshold(self):
+        # 2 em dashes in ~80 words ≈ 2.5/100, well above the 0.5 threshold
+        text = (
+            "The project — which started in January — was ambitious and well-planned. "
+            "The team delivered every milestone on schedule and the client was happy with "
+            "the result. We learned a lot about the domain and built solid foundations "
+            "for the next phase of work that kicks off in March."
+        )
+        report = scan_text(text)
+        assert has_finding_matching(report, category="em_dash_density")
 
     def test_transition_density(self):
         text = (

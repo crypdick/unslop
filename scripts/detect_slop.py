@@ -232,7 +232,7 @@ def scan_text(text: str, filepath: str = "<stdin>") -> FileReport:
     report.ai_vocab_count = len(ai_words)
     report.ai_vocab_density = (len(ai_words) / len(words)) * 100 if words else 0
 
-    if report.ai_vocab_density > 3.0:
+    if report.ai_vocab_density > 1.5:
         report.findings.append(Finding(
             line=0,
             severity="high",
@@ -240,7 +240,7 @@ def scan_text(text: str, filepath: str = "<stdin>") -> FileReport:
             message=f"high AI vocabulary density: {report.ai_vocab_density:.1f}% ({len(ai_words)} words in {len(words)})",
             text=", ".join(sorted(set(ai_words))),
         ))
-    elif report.ai_vocab_density > 1.5:
+    elif report.ai_vocab_density > 0.5:
         report.findings.append(Finding(
             line=0,
             severity="medium",
@@ -252,19 +252,19 @@ def scan_text(text: str, filepath: str = "<stdin>") -> FileReport:
     # Em dash density
     em_dashes = len(EM_DASH_RE.findall(text))
     em_dash_rate = em_dashes / (len(words) / 100) if words else 0
-    if em_dash_rate > 2.0:
+    if em_dash_rate > 0.5:
         report.findings.append(Finding(
             line=0,
             severity="low",
             category="em_dash_density",
-            message=f"high em dash density: {em_dashes} em dashes per {len(words)} words ({em_dash_rate:.1f}/100 words)",
+            message=f"em dash density: {em_dashes} em dashes per {len(words)} words ({em_dash_rate:.1f}/100 words)",
             text="",
         ))
 
     # Transition word density
     transition_count = len(TRANSITION_STARTERS.findall(text))
     para_count = len([p for p in text.split("\n\n") if p.strip()])
-    if para_count > 2 and transition_count / para_count > 0.4:
+    if para_count > 2 and transition_count / para_count > 0.25:
         report.findings.append(Finding(
             line=0,
             severity="medium",
