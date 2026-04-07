@@ -61,9 +61,9 @@ Not every instance of "crucial" is AI slop. Context matters. A single em dash in
 - **Don't remove all structure.** Headings, lists, and formatting are fine when they serve the content. The problem is *compulsive* structuring, not structure itself.
 - **Don't mention this skill.** Just output the cleaned text and your change summary. Don't say "I used the unslop skill" or reference these instructions.
 
-## Automated Detection
+## Automated Detection (Initial Pass Only)
 
-For batch scanning of files or directories, you can run the bundled detector script:
+For batch scanning, you can run the bundled detector script as a first pass:
 
 ```bash
 uv run scripts/detect_slop.py FILE_OR_DIR       # scan files
@@ -71,7 +71,9 @@ uv run scripts/detect_slop.py -v docs/           # verbose (show low-severity)
 uv run scripts/detect_slop.py --json report.json  # JSON output
 ```
 
-The script produces a per-file slop score and exits with code 1 if slop is detected, so it works in CI pipelines or pre-commit hooks.
+The script catches surface-level patterns — vocabulary clusters, formulaic phrases, dangling participles — and produces a per-file slop score. It's useful for triaging which files need attention and works in CI or pre-commit hooks.
+
+But **don't over-rely on the script.** Many of the worst AI writing habits are invisible to regex: superficial analyses that gesture at depth without saying anything, significance inflation using novel phrasing, elegant variation that cycles through synonyms, breathless promotional tone that avoids the specific flagged words, empty hedge-stacking, and conclusions that follow the "despite challenges, the future looks bright" formula without using those exact words. The script is a net for the obvious catches. Your real value is reading the text as a human editor would and catching the patterns that require judgment.
 
 ## Output Format
 
