@@ -27,15 +27,17 @@ from pathlib import Path
 AI_VOCABULARY = {
     # Classic LLM lexicon
     "delve", "tapestry", "pivotal", "crucial", "underscore", "vibrant",
-    "meticulous", "intricate", "testament", "garner", "bolstered",
-    "fostering", "showcasing", "highlighting", "emphasizing", "enduring",
-    "nuanced", "multifaceted", "comprehensive", "robust", "leverage",
-    "realm", "paradigm", "cornerstone", "beacon", "spearhead",
+    "meticulous", "intricate", "intricacies", "testament", "garner",
+    "bolstered", "fostering", "showcasing", "highlighting", "emphasizing",
+    "enduring", "nuanced", "multifaceted", "comprehensive", "robust",
+    "leverage", "realm", "paradigm", "cornerstone", "beacon", "spearhead",
     "demystify", "unpack", "harness", "catalyze", "synergy", "holistic",
-    "granular", "unravel",
+    "granular", "unravel", "interplay",
     # Inflation words
     "groundbreaking", "revolutionary", "transformative", "game-changing",
     "unprecedented", "invaluable", "indispensable", "indelible",
+    # Promotional
+    "renowned", "exemplifies",
 }
 
 # Words that are only AI-ish when used metaphorically (need context)
@@ -93,6 +95,19 @@ FORMULAIC_PHRASES = [
     (r"\blet'?s (?:delve|dive|unpack|explore|examine)\b", "collaborative address: 'let's delve/dive/explore'"),
     (r"\bas we'?ll see\b", "collaborative address: 'as we'll see'"),
     (r"\bhere'?s (?:the thing|why)\b", "collaborative address: 'here's the thing/why'"),
+
+    # Sycophantic openers
+    (r"^(?:Great|Excellent|Fantastic|Wonderful) (?:question|point|observation)\b", "sycophantic opener"),
+    (r"^(?:Absolutely|Exactly)[!.]", "sycophantic opener"),
+    (r"^You raise a (?:really |very )?(?:important|great|excellent|good) (?:point|issue|question)\b", "sycophantic opener"),
+
+    # Structural scaffolding
+    (r"\bthere are (?:three|four|five|several|many|a number of) (?:key|main|important|critical|primary) ", "structural scaffolding: 'there are N key...'"),
+    (r"\blet'?s break (?:this|it) down\b", "structural scaffolding: 'let's break this down'"),
+
+    # Notability emphasis
+    (r"\b(?:renowned|acclaimed|celebrated) (?:for|as)\b", "notability emphasis: 'renowned/acclaimed for'"),
+    (r"\bwidely regarded as\b", "notability emphasis: 'widely regarded as'"),
 ]
 
 # Dangling present participle fillers (end-of-sentence)
@@ -115,6 +130,21 @@ TRANSITION_STARTERS = re.compile(
     r"Ultimately|Essentially|Fundamentally)[,:]?\s",
     re.MULTILINE,
 )
+
+# Rule of three: "adjective, adjective, and adjective" pattern
+RULE_OF_THREE_RE = re.compile(
+    r"\b(\w+), (\w+),? and (\w+)\b",
+    re.IGNORECASE,
+)
+
+# Title case heading detection (markdown headings)
+TITLE_CASE_HEADING_RE = re.compile(r"^#{1,6}\s+(.+)$", re.MULTILINE)
+
+# Curly/smart quotes and apostrophes
+CURLY_QUOTES_RE = re.compile(r"[\u2018\u2019\u201C\u201D]")
+
+# Markdown bold overuse
+BOLD_RE = re.compile(r"\*\*[^*]+\*\*")
 
 # Em dash (for density check)
 EM_DASH_RE = re.compile(r"\u2014|--")
@@ -225,6 +255,34 @@ def scan_text(text: str, filepath: str = "<stdin>") -> FileReport:
                 text=stripped[:60],
             ))
 
+        # Title case headings (markdown)
+        heading_match = TITLE_CASE_HEADING_RE.match(stripped)
+        if heading_match:
+            title = heading_match.group(1).strip()
+            # Check if most words are capitalized (skip short words)
+            heading_words = title.split()
+            if len(heading_words) >= 3:
+                skip = {"a", "an", "the", "and", "or", "but", "in", "on", "at", "to", "for", "of", "with", "by", "is", "as"}
+                capitalized = sum(1 for w in heading_words if w[0].isupper() or w.lower() in skip)
+                if capitalized == len(heading_words):
+                    report.findings.append(Finding(
+                        line=line_num,
+                        severity="low",
+                        category="title_case_heading",
+                        message="title case heading (AI default; most style guides use sentence case)",
+                        text=stripped[:80],
+                    ))
+
+        # Curly/smart quotes
+        if CURLY_QUOTES_RE.search(stripped):
+            report.findings.append(Finding(
+                line=line_num,
+                severity="low",
+                category="curly_quotes",
+                message="curly/smart quotes (common AI artifact)",
+                text=stripped[:60],
+            ))
+
     # --- Document-level analysis ---
 
     # AI vocabulary density
@@ -270,6 +328,18 @@ def scan_text(text: str, filepath: str = "<stdin>") -> FileReport:
             severity="medium",
             category="transition_density",
             message=f"high transition word density: {transition_count}/{para_count} paragraphs start with transition words",
+            text="",
+        ))
+
+    # Boldface density (markdown)
+    bold_count = len(BOLD_RE.findall(text))
+    bold_rate = bold_count / (len(words) / 100) if words else 0
+    if bold_rate > 1.0:
+        report.findings.append(Finding(
+            line=0,
+            severity="low",
+            category="bold_density",
+            message=f"heavy boldface usage: {bold_count} bold spans per {len(words)} words ({bold_rate:.1f}/100 words)",
             text="",
         ))
 

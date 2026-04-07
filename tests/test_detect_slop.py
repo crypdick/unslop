@@ -258,6 +258,84 @@ class TestFormulaicPhrases:
         report = scan_text(text)
         assert has_finding_matching(report, message_contains="vague attribution")
 
+    def test_sycophantic_opener_great_question(self):
+        text = pad("Great question! The answer depends on several factors in this case.")
+        report = scan_text(text)
+        assert has_finding_matching(report, message_contains="sycophantic")
+
+    def test_sycophantic_opener_absolutely(self):
+        text = pad("Absolutely! That is exactly the right approach to take here.")
+        report = scan_text(text)
+        assert has_finding_matching(report, message_contains="sycophantic")
+
+    def test_sycophantic_opener_you_raise(self):
+        text = pad("You raise a really important point about the architecture of the system.")
+        report = scan_text(text)
+        assert has_finding_matching(report, message_contains="sycophantic")
+
+    def test_structural_scaffolding_three_key(self):
+        text = pad("There are three key factors to consider when evaluating this approach.")
+        report = scan_text(text)
+        assert has_finding_matching(report, message_contains="scaffolding")
+
+    def test_structural_scaffolding_break_down(self):
+        text = pad("Let's break this down into smaller components so it is easier to see.")
+        report = scan_text(text)
+        assert has_finding_matching(report, message_contains="scaffolding")
+
+    def test_renowned_for(self):
+        text = pad("The university is renowned for its engineering program and research output.")
+        report = scan_text(text)
+        assert has_finding_matching(report, message_contains="notability")
+
+    def test_widely_regarded_as(self):
+        text = pad("She is widely regarded as one of the leading experts in the field today.")
+        report = scan_text(text)
+        assert has_finding_matching(report, message_contains="notability")
+
+
+# ---------------------------------------------------------------------------
+# scan_text: title case headings
+# ---------------------------------------------------------------------------
+
+class TestTitleCaseHeadings:
+    def test_title_case_flagged(self):
+        text = pad("## Global Context: Critical Mineral Demand And Supply Chain Issues")
+        report = scan_text(text)
+        assert has_finding_matching(report, category="title_case_heading")
+
+    def test_sentence_case_not_flagged(self):
+        text = pad("## Global context: critical mineral demand and supply chain issues")
+        report = scan_text(text)
+        assert not has_finding_matching(report, category="title_case_heading")
+
+    def test_short_heading_not_flagged(self):
+        # Headings with fewer than 3 words are ignored (too ambiguous)
+        text = "## Key Points\n\nThe bridge took three years to build and cost twice the estimate overall."
+        report = scan_text(text)
+        assert not has_finding_matching(report, category="title_case_heading")
+
+
+# ---------------------------------------------------------------------------
+# scan_text: curly quotes
+# ---------------------------------------------------------------------------
+
+class TestCurlyQuotes:
+    def test_curly_quotes_flagged(self):
+        text = pad("The \u201Cbest\u201D approach is to use straight quotes in plain text files.")
+        report = scan_text(text)
+        assert has_finding_matching(report, category="curly_quotes")
+
+    def test_curly_apostrophe_flagged(self):
+        text = pad("It\u2019s important to use consistent quotation marks throughout the text.")
+        report = scan_text(text)
+        assert has_finding_matching(report, category="curly_quotes")
+
+    def test_straight_quotes_not_flagged(self):
+        text = pad('The "best" approach is to keep things simple and direct overall.')
+        report = scan_text(text)
+        assert not has_finding_matching(report, category="curly_quotes")
+
 
 # ---------------------------------------------------------------------------
 # scan_text: dangling participles
@@ -427,6 +505,31 @@ class TestDocumentLevelDensity:
         )
         report = scan_text(text)
         assert has_finding_matching(report, category="transition_density")
+
+    def test_bold_density(self):
+        text = (
+            "The **first** step is to **identify** the problem. "
+            "Then **analyze** the **root cause** and **document** your findings. "
+            "Finally, **implement** the **solution** and **verify** results."
+        )
+        report = scan_text(text)
+        assert has_finding_matching(report, category="bold_density")
+
+    def test_sparse_bold_not_flagged(self):
+        # 1 bold in 100+ words ≈ <1.0/100, below threshold
+        text = (
+            "The project has a single **important** constraint: the deadline. "
+            "Everything else is negotiable. The team has been working on this for "
+            "three months and we expect to ship in two more weeks at the latest. "
+            "The backend migration is on track and the database schema has been "
+            "finalized. We still need to update the documentation before the release "
+            "goes out, but that should only take a day or two at most. The QA team "
+            "has already signed off on all the critical user flows and the staging "
+            "environment is stable. We ran load tests last week and the system "
+            "handled twice our expected peak traffic without any issues."
+        )
+        report = scan_text(text)
+        assert not has_finding_matching(report, category="bold_density")
 
 
 # ---------------------------------------------------------------------------

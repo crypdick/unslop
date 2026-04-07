@@ -170,3 +170,25 @@ Starting responses with:
 - "That's an excellent point."
 - "Absolutely!"
 - "You raise a really important issue."
+
+### Curly/Smart Quotes
+
+AI often outputs curly quotes (\u2018\u2019\u201C\u201D) instead of straight ASCII quotes. This is a minor tell but correlates with AI origin, especially in plain-text contexts where smart quotes look out of place.
+
+### Excessive Boldface
+
+Mechanical, repetitive bolding — every instance of a key term, "key takeaways" formatting, or bolding entire phrases for emphasis that the prose should carry on its own.
+
+### Notability/Media Coverage Emphasis
+
+AI inflates coverage significance:
+- "profiled in major publications"
+- "garnered widespread media attention"
+- "featured in leading industry outlets"
+- "maintains a strong digital presence"
+
+Often lists media sources to prove importance when the coverage is routine or trivial.
+
+### Sudden Shifts in Writing Style
+
+An abrupt change in tone, vocabulary level, or complexity mid-document. Often visible when AI-generated sections are interleaved with human writing, or when a prompt changed partway through generation.
