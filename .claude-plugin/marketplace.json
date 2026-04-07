@@ -1,0 +1,17 @@
+{
+  "name": "unslop",
+  "owner": {
+    "name": "Ricardo Decal"
+  },
+  "metadata": {
+    "description": "Detect and clean up AI writing patterns"
+  },
+  "plugins": [
+    {
+      "name": "unslop",
+      "source": "./",
+      "description": "Detect and clean up AI writing patterns",
+      "version": "1.0.0"
+    }
+  ]
+}
