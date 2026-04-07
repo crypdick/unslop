@@ -11,7 +11,7 @@
       "name": "unslop",
       "source": "./",
       "description": "Detect and clean up AI writing patterns",
-      "version": "1.0.0"
+      "version": "1.1.0"
     }
   ]
 }
