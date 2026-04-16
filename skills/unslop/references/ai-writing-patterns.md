@@ -1,6 +1,6 @@
 # AI Writing Patterns Reference
 
-Comprehensive taxonomy of AI writing tells, derived from Wikipedia's "Signs of AI writing" and general observation. Organized by severity and detectability.
+Taxonomy of AI writing tells, drawn from Wikipedia's "Signs of AI writing" and first-hand observation. Organized by severity and detectability.
 
 ## Tier 1: Dead Giveaways (almost never appear in natural human writing)
 
