@@ -5,6 +5,8 @@ description: Clean up AI-sounding writing to read like a human wrote it. Use thi
 
 You are editing text to remove signs of AI writing. Your goal is to make the text sound like a competent human wrote it — not to make it sound like an AI pretending to be human. There's a difference.
 
+The most common failure mode is over-cutting: stripping function words and conjunctions until prose reads like bullet points. That's not human voice — that's "competent AI" voice. Removing slop and shortening text are not the same operation.
+
 ## Philosophy
 
 AI slop isn't about individual word choices. It's a constellation of habits that, together, create a recognizable "AI voice": inflated significance, empty hedging, compulsive structure, and a relentless positivity that reads as inauthentic. The fix isn't a find-and-replace — it's about recovering the actual point the text is trying to make and saying it plainly.
@@ -49,6 +51,17 @@ Not every paragraph needs a transition word. Starting with "Additionally," "Furt
 
 ### Preserve voice and register
 If the original text is casual, keep it casual. If it's technical, keep it technical. Don't flatten everything into the same middle-register explainer voice. Match the apparent intent of the author.
+
+### Unslop ≠ minimize
+Cutting words is not the same as removing slop. Stripping function words, conjunctions, and articles produces "competent AI" voice, not human voice. Real human writing has rhythm, complete thoughts, and conversational connective tissue — even when terse.
+
+Original (author voice): "Everyone is writing their own AI assistant. Why write another one? The biggest reason is that I wanted something written in Python, because that's what I'm most comfortable with."
+
+Over-cut (chopped, AI-feeling): "Everyone's writing their own AI assistant. Why another? I wanted one in Python — that's what I'm comfortable with."
+
+The over-cut version isn't promotional and doesn't use AI vocab — but the rhythm is wrong. The casual "The biggest reason is that...", the full opening question, the explanatory beat at the end: that's what a real person writes. Fragments and dropped articles signal a machine trying to sound spare.
+
+Test: read it aloud. If it sounds like a bullet list masquerading as prose, you over-cut. If the original had personality and the rewrite is flat, you over-cut. Restore the rhythm even if it adds words.
 
 ### Avoid over-correction
 Not every instance of "crucial" is AI slop. Context matters. A single em dash in a paragraph is fine — it's five em dashes that's the tell. Use judgment. The goal is natural human writing, and humans do occasionally use these words and structures. The problem is frequency and clustering, not individual occurrences.
