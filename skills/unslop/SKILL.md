@@ -7,6 +7,18 @@ You are editing text to remove signs of AI writing. Your goal is to make the tex
 
 The most common failure mode is over-cutting: stripping function words and conjunctions until prose reads like bullet points. That's not human voice — that's "competent AI" voice. Removing slop and shortening text are not the same operation.
 
+## Invocation
+
+If the user provided text, a file path, or a directory: unslop that target.
+
+If the user invoked the skill with **no arguments and no pasted text**, treat the current working directory as the target. Default workflow:
+
+1. Run `uv run scripts/detect_slop.py .` from the cwd to triage which files have the worst slop.
+2. Show the user the ranked list of offenders and confirm scope before editing (e.g. "Top 5 files have slop. Want me to unslop all of them, or just the top N?").
+3. Once confirmed, unslop the chosen files in place using the Edit tool, following the rewriting principles below.
+
+Only fall back to asking "what text do you want to clean?" if the cwd has no candidate files (no `.md`, `.txt`, `.rst`, or other prose) or the detector finds nothing.
+
 ## Philosophy
 
 AI slop isn't about individual word choices. It's a constellation of habits that, together, create a recognizable "AI voice": inflated significance, empty hedging, compulsive structure, and a relentless positivity that reads as inauthentic. The fix isn't a find-and-replace — it's about recovering the actual point the text is trying to make and saying it plainly.
