@@ -63,8 +63,8 @@ Exit code 0 means clean, 1 means slop detected.
 The detection script and skill reference a taxonomy of AI writing patterns organized by severity:
 
 - **Tier 1 (dead giveaways):** vocabulary clusters ("delve", "tapestry", "pivotal", "robust"), copulative avoidance ("serves as" instead of "is"), formulaic significance framing ("is a testament to"), the "not just X, but Y" construction
-- **Tier 2 (strong signals):** promotional tone, dangling participle filler clauses, rule-of-three abuse, synonym cycling, vague attribution ("experts argue"), formulaic conclusions ("despite challenges, the future looks promising")
-- **Tier 3 (stylistic tells):** em dash overuse, hedge stacking, transition word spam, sycophantic openers, excessive boldface
+- **Tier 2 (strong signals):** promotional tone, dangling participle filler clauses, rule-of-three abuse, synonym cycling, vague attribution ("experts argue"), formulaic conclusions, and false ranges
+- **Tier 3 (stylistic tells):** em dash overuse, hedge stacking, transition word spam, sycophantic openers, pasted chatbot artifacts, knowledge-cutoff disclaimers, templated inline-header lists, and decorative emoji
 
 The script catches what regex can. The skill catches what requires judgment — superficial analysis masquerading as depth, significance inflation with novel phrasing, and the general flatness of AI prose.
 
@@ -74,3 +74,5 @@ The script catches what regex can. The skill catches what requires judgment — 
 uv run pytest                          # run tests
 uv run scripts/detect_slop.py -v .     # scan the repo itself
 ```
+
+`evals/rewrite_cases.json` contains manual rewrite cases with facts that must survive and phrases the final edit should remove. Use it when changing the skill prompt or comparing model behavior.

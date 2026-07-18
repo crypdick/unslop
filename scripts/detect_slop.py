@@ -123,6 +123,47 @@ DANGLING_PARTICIPLE_RE = re.compile(
 # Compile formulaic patterns
 COMPILED_PHRASES = [(re.compile(p, re.IGNORECASE), name) for p, name in FORMULAIC_PHRASES]
 
+# Pasted assistant correspondence that does not belong in standalone prose.
+CHATBOT_ARTIFACT_PATTERNS = [
+    (r"\bi hope this helps[.!]?", "chatbot residue: 'I hope this helps'"),
+    (
+        r"\blet me know if you(?:['\u2019]d| would) like\b",
+        "chatbot residue: 'let me know if you'd like'",
+    ),
+    (r"\bwould you like me to\b", "chatbot residue: 'would you like me to'"),
+    (
+        r"\bas an ai (?:language )?(?:model|assistant)\b",
+        "chatbot residue: 'as an AI model'",
+    ),
+]
+COMPILED_CHATBOT_ARTIFACTS = [
+    (re.compile(pattern, re.IGNORECASE), message)
+    for pattern, message in CHATBOT_ARTIFACT_PATTERNS
+]
+
+# Explicit model-knowledge disclaimers that often leak from chat into content.
+# These are deliberately narrower than generic uncertainty phrases: honest
+# uncertainty is not slop, and the editor must never replace it with a guess.
+KNOWLEDGE_CUTOFF_PATTERNS = [
+    (
+        r"\b(?:up to|as of) my last (?:knowledge|training) (?:update|cutoff)\b",
+        "knowledge-cutoff disclaimer: 'up to my last ... update'",
+    ),
+    (
+        r"\bmy (?:knowledge|training) cutoff (?:is|was)\b",
+        "knowledge-cutoff disclaimer: 'my knowledge cutoff is'",
+    ),
+    (
+        r"\bi don['\u2019]?t have access to (?:real[- ]time|current) "
+        r"(?:data|information)\b",
+        "knowledge-cutoff disclaimer: no access to current information",
+    ),
+]
+COMPILED_KNOWLEDGE_CUTOFFS = [
+    (re.compile(pattern, re.IGNORECASE), message)
+    for pattern, message in KNOWLEDGE_CUTOFF_PATTERNS
+]
+
 # Transition words that AI overuses at sentence starts
 TRANSITION_STARTERS = re.compile(
     r"^(?:Additionally|Furthermore|Moreover|Importantly|Notably|"
@@ -148,6 +189,22 @@ BOLD_RE = re.compile(r"\*\*[^*]+\*\*")
 
 # Em dash (for density check)
 EM_DASH_RE = re.compile(r"\u2014|--")
+
+# Repeated list items with mechanical bold labels, such as
+# "- **Performance:** Performance improved." One item can be useful; a run of
+# them is the stronger stylistic signal.
+INLINE_HEADER_ITEM_RE = re.compile(
+    r"^\s*(?:[-*+]|\d+[.)])\s+\*\*[^*\n]{1,60}:\*\*",
+    re.MULTILINE,
+)
+
+# Decorative emoji at the beginning of headings or list items. Restrict the
+# check to line-leading decoration to avoid flagging ordinary emoji in prose.
+DECORATIVE_EMOJI_LINE_RE = re.compile(
+    r"^\s*(?:(?:#{1,6}|[-*+])\s+)?"
+    r"[\U0001F300-\U0001FAFF\u2600-\u27BF]",
+    re.MULTILINE,
+)
 
 
 # ---------------------------------------------------------------------------
@@ -210,6 +267,28 @@ def scan_text(text: str, filepath: str = "<stdin>") -> FileReport:
                     severity="high" if "significance" in name or "copulative" in name else "medium",
                     category="formulaic_phrase",
                     message=name,
+                    text=match.group(0)[:80],
+                ))
+
+        # Pasted chatbot correspondence
+        for pattern, message in COMPILED_CHATBOT_ARTIFACTS:
+            for match in pattern.finditer(stripped):
+                report.findings.append(Finding(
+                    line=line_num,
+                    severity="medium",
+                    category="chatbot_artifact",
+                    message=message,
+                    text=match.group(0)[:80],
+                ))
+
+        # Explicit model knowledge-cutoff disclaimers
+        for pattern, message in COMPILED_KNOWLEDGE_CUTOFFS:
+            for match in pattern.finditer(stripped):
+                report.findings.append(Finding(
+                    line=line_num,
+                    severity="medium",
+                    category="knowledge_cutoff",
+                    message=message,
                     text=match.group(0)[:80],
                 ))
 
@@ -343,6 +422,28 @@ def scan_text(text: str, filepath: str = "<stdin>") -> FileReport:
             text="",
         ))
 
+    # Repeated bold-label list items
+    inline_header_items = len(INLINE_HEADER_ITEM_RE.findall(text))
+    if inline_header_items >= 3:
+        report.findings.append(Finding(
+            line=0,
+            severity="low",
+            category="inline_header_list",
+            message=f"repeated inline-header list: {inline_header_items} bold-label items",
+            text="",
+        ))
+
+    # Repeated decorative emoji in headings or list items
+    decorative_emoji_lines = len(DECORATIVE_EMOJI_LINE_RE.findall(text))
+    if decorative_emoji_lines >= 2:
+        report.findings.append(Finding(
+            line=0,
+            severity="low",
+            category="decorative_emoji",
+            message=f"decorative emoji start {decorative_emoji_lines} headings/list items",
+            text="",
+        ))
+
     # Compute overall slop score (weighted findings per 100 words)
     raw_score = sum(f.severity_weight for f in report.findings)
     report.slop_score = (raw_score / len(words)) * 100 if words else 0
@@ -444,7 +545,7 @@ def print_summary(reports: list[FileReport], use_color: bool) -> None:
 
     worst = sorted(flagged, key=lambda r: r.slop_score, reverse=True)[:5]
     if len(worst) > 1:
-        print(f"\nWorst offenders:")
+        print("\nWorst offenders:")
         for r in worst:
             print(f"  {r.slop_score:>6.1f}  {r.path}")
 

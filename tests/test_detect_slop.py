@@ -10,7 +10,6 @@ import pytest
 # Import from the script
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "scripts"))
 from detect_slop import (
-    AI_VOCABULARY,
     FileReport,
     Finding,
     collect_files,
@@ -295,6 +294,50 @@ class TestFormulaicPhrases:
 
 
 # ---------------------------------------------------------------------------
+# scan_text: chatbot and knowledge-cutoff artifacts
+# ---------------------------------------------------------------------------
+
+class TestChatbotArtifacts:
+    @pytest.mark.parametrize(
+        "artifact",
+        [
+            "I hope this helps!",
+            "Let me know if you'd like more detail.",
+            "Let me know if you’d like more detail.",
+            "Would you like me to continue?",
+            "As an AI language model, I cannot verify that claim.",
+        ],
+    )
+    def test_chatbot_artifact_flagged(self, artifact):
+        report = scan_text(pad(artifact))
+        assert has_finding_matching(report, category="chatbot_artifact")
+
+    def test_normal_request_not_flagged(self):
+        report = scan_text(pad("Let me know tomorrow whether the migration finished on time."))
+        assert not has_finding_matching(report, category="chatbot_artifact")
+
+
+class TestKnowledgeCutoffArtifacts:
+    @pytest.mark.parametrize(
+        "artifact",
+        [
+            "Up to my last training update, the company had three offices.",
+            "As of my last knowledge cutoff, the package was still experimental.",
+            "My knowledge cutoff was June, so I cannot confirm the release.",
+            "I don’t have access to real-time information about the current price.",
+        ],
+    )
+    def test_knowledge_cutoff_flagged(self, artifact):
+        report = scan_text(pad(artifact))
+        assert has_finding_matching(report, category="knowledge_cutoff")
+
+    def test_source_specific_uncertainty_not_flagged(self):
+        text = pad("The archived report does not give an exact opening date for the office.")
+        report = scan_text(text)
+        assert not has_finding_matching(report, category="knowledge_cutoff")
+
+
+# ---------------------------------------------------------------------------
 # scan_text: title case headings
 # ---------------------------------------------------------------------------
 
@@ -530,6 +573,36 @@ class TestDocumentLevelDensity:
         )
         report = scan_text(text)
         assert not has_finding_matching(report, category="bold_density")
+
+    def test_repeated_inline_header_list_flagged(self):
+        text = (
+            "- **Performance:** The cache reduced median response time.\n"
+            "- **Security:** Hardware keys are now required for administrators.\n"
+            "- **Usability:** The signup form has two fewer fields."
+        )
+        report = scan_text(text)
+        assert has_finding_matching(report, category="inline_header_list")
+
+    def test_two_inline_header_items_not_flagged(self):
+        text = (
+            "- **Owner:** Mina runs the rollback drill on Friday.\n"
+            "- **Deadline:** The release goes out on September eighth."
+        )
+        report = scan_text(text)
+        assert not has_finding_matching(report, category="inline_header_list")
+
+    def test_repeated_decorative_emoji_flagged(self):
+        text = (
+            "## 🚀 Launch\nThe release goes out after the database migration.\n\n"
+            "## ✅ Next step\nMina runs the rollback drill on Friday."
+        )
+        report = scan_text(text)
+        assert has_finding_matching(report, category="decorative_emoji")
+
+    def test_single_emoji_heading_not_flagged(self):
+        text = "## ✅ Status\nThe migration finished on Tuesday after forty minutes of maintenance."
+        report = scan_text(text)
+        assert not has_finding_matching(report, category="decorative_emoji")
 
 
 # ---------------------------------------------------------------------------
@@ -826,7 +899,7 @@ class TestCLI:
             "It's worth noting that experts argue the menu is truly unique and exceptional."
         )
         json_file = tmp_path / "report.json"
-        result = subprocess.run(
+        subprocess.run(
             [sys.executable, SCRIPT, "--json", str(json_file), str(f)],
             capture_output=True, text=True,
         )

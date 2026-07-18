@@ -112,6 +112,15 @@ The AI essay coda:
 - "Moving forward, it will be important to..."
 - "Only time will tell whether..."
 
+### False Ranges
+
+LLMs use "from X to Y" as a dramatic container even when X and Y are not endpoints on a meaningful scale:
+- "from the Big Bang to dark matter"
+- "from strategy to empathy"
+- "from individual choices to global transformation"
+
+List the actual topics or state the relationship between them. Keep a range when the endpoints really do define an interval, progression, or scope.
+
 ---
 
 ## Tier 3: Stylistic Tells (subtler, but accumulate)
@@ -159,6 +168,24 @@ Over-signposting:
 - "There are three key aspects to consider:"
 - "Let's break this down into components:"
 
+### Inline-Header Vertical Lists
+
+Repeated bullets with bold labels often turn ordinary prose into a template:
+- "**Performance:** Performance improved through optimization."
+- "**Security:** Security was strengthened with encryption."
+- "**Usability:** Usability was enhanced by the new interface."
+
+Remove the repeated labels or combine the points when the list adds no scanability. Keep a list when the items are genuinely parallel and readers need to scan them.
+
+### Decorative Emoji
+
+Emoji attached mechanically to headings and bullets can make a document look like chatbot output:
+- "🚀 **Launch:** Ship in Q3"
+- "💡 **Insight:** Users prefer fewer steps"
+- "✅ **Next step:** Schedule the review"
+
+Remove decoration that carries no meaning. Keep emoji when it belongs to the author's established voice or communicates a real status convention.
+
 ### Title Case Overuse in Headings
 
 AI defaults to Title Case For Every Heading even when the surrounding document uses sentence case.
@@ -170,6 +197,25 @@ Starting responses with:
 - "That's an excellent point."
 - "Absolutely!"
 - "You raise a really important issue."
+
+### Pasted Chatbot Artifacts
+
+Chat correspondence sometimes leaks into the document itself:
+- "I hope this helps!"
+- "Let me know if you'd like more detail."
+- "Would you like me to continue?"
+- "As an AI language model..."
+
+Delete the conversational wrapper and begin with the content. Do not remove similar language from an actual email or message where the author is genuinely addressing another person.
+
+### Knowledge-Cutoff Disclaimers
+
+Model-specific disclaimers do not belong in standalone prose:
+- "Up to my last training update..."
+- "My knowledge cutoff is..."
+- "I don't have access to real-time information..."
+
+Rewrite the limitation as ordinary, source-specific uncertainty when it matters. Never replace an honest gap with a fabricated fact; verify it, preserve the uncertainty, or flag it for the author.
 
 ### Curly/Smart Quotes
 
@@ -192,3 +238,15 @@ Often lists media sources to prove importance when the coverage is routine or tr
 ### Sudden Shifts in Writing Style
 
 An abrupt change in tone, vocabulary level, or complexity mid-document. Often visible when AI-generated sections are interleaved with human writing, or when a prompt changed partway through generation.
+
+---
+
+## Detection Guardrails
+
+These patterns are editing signals, not proof that AI wrote the text. Look for clusters, repetition, and mismatch with the surrounding voice.
+
+- Do not rewrite watched phrases inside quotations, titles, code, or examples where the phrase is being discussed rather than used.
+- Curly quotes, one em dash, one three-item list, or one emoji mean little on their own.
+- A "from X to Y" range is fine when X and Y are comparable endpoints.
+- Bold-label lists and emoji may be deliberate interface or brand conventions.
+- Preserve accurate uncertainty. Removing model-specific disclaimers does not authorize guessing.

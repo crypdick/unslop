@@ -1,0 +1,103 @@
+{
+  "schema_version": 1,
+  "cases": [
+    {
+      "id": "chatbot-residue",
+      "focus": "Remove assistant correspondence without dropping the factual sentence.",
+      "input": "Certainly! Here is the update. The database migration finished on Tuesday after a forty-minute maintenance window. I hope this helps! Let me know if you'd like more detail.",
+      "must_preserve": [
+        "The database migration finished on Tuesday",
+        "forty-minute maintenance window"
+      ],
+      "must_avoid": [
+        "I hope this helps",
+        "Let me know if you'd like"
+      ],
+      "detector_categories": [
+        "chatbot_artifact"
+      ]
+    },
+    {
+      "id": "knowledge-cutoff",
+      "focus": "Remove model-specific framing while preserving honest uncertainty.",
+      "input": "Up to my last training update, the company appears to have opened its first office in the late 1990s, but the source does not give an exact year.",
+      "must_preserve": [
+        "late 1990s",
+        "the source does not give an exact year"
+      ],
+      "must_avoid": [
+        "Up to my last training update"
+      ],
+      "detector_categories": [
+        "knowledge_cutoff"
+      ]
+    },
+    {
+      "id": "false-range",
+      "focus": "Replace a decorative range with a direct list of subjects.",
+      "input": "The book takes readers from the Big Bang to dark matter, from the birth of stars to the intricate web of modern cosmology.",
+      "must_preserve": [
+        "Big Bang",
+        "dark matter",
+        "birth of stars",
+        "modern cosmology"
+      ],
+      "must_avoid": [
+        "takes readers from"
+      ],
+      "detector_categories": []
+    },
+    {
+      "id": "inline-header-list",
+      "focus": "Remove repeated labels while preserving each concrete change.",
+      "input": "- **Performance:** Performance improved after the cache change.\n- **Security:** Security improved when the team required hardware keys.\n- **Usability:** Usability improved after the form dropped two fields.",
+      "must_preserve": [
+        "cache change",
+        "hardware keys",
+        "dropped two fields"
+      ],
+      "must_avoid": [
+        "**Performance:** Performance",
+        "**Security:** Security",
+        "**Usability:** Usability"
+      ],
+      "detector_categories": [
+        "inline_header_list"
+      ]
+    },
+    {
+      "id": "decorative-emoji",
+      "focus": "Remove mechanical decoration but keep the underlying status information.",
+      "input": "## 🚀 Launch\nThe release goes out on September 8 after the database migration.\n\n## ✅ Next step\nMina will run the rollback drill on Friday.",
+      "must_preserve": [
+        "September 8",
+        "Mina",
+        "rollback drill on Friday"
+      ],
+      "must_avoid": [
+        "🚀",
+        "✅"
+      ],
+      "detector_categories": [
+        "decorative_emoji"
+      ]
+    },
+    {
+      "id": "existing-voice-and-technical-fidelity",
+      "focus": "Remove inflation without flattening the author's casual rhythm or changing technical facts.",
+      "input": "Honestly, this little parser is kind of boring, and that's fine. It serves as a robust foundation for the rest of the tool, but the actual job is simple: read port 443, sort the records in O(n log n), and move on.",
+      "must_preserve": [
+        "kind of boring, and that's fine",
+        "port 443",
+        "O(n log n)",
+        "move on"
+      ],
+      "must_avoid": [
+        "serves as a robust foundation"
+      ],
+      "detector_categories": [
+        "formulaic_phrase"
+      ]
+    }
+  ]
+}

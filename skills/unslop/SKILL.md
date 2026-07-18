@@ -31,7 +31,9 @@ Good writing is specific, direct, and trusts the reader. AI writing over-explain
 2. **Identify the worst offenders.** Read `references/ai-writing-patterns.md` for the full taxonomy. Focus on patterns from Tier 1 and Tier 2 first.
 3. **Rewrite, don't just swap words.** Replacing "delve" with "explore" still sounds like AI. Restructure the sentence so it says something concrete instead of gesturing vaguely.
 4. **Preserve the author's ideas.** You're removing the AI voice, not the content. If the text makes a substantive point, keep it. If a sentence is pure filler with no information content, cut it.
-5. **Output the cleaned text**, then a brief summary of what you changed and why.
+5. **Draft the rewrite privately.** Do not show an intermediate version.
+6. **Run a private second-pass audit.** Check the draft for remaining Tier 1 and Tier 2 patterns, flattened rhythm, changed technical claims, lost uncertainty, and any opinion or detail you invented. Read it aloud mentally; if it sounds assembled or mechanically terse, revise it.
+7. **Output only the final cleaned text**, then a brief summary of what you changed and why.
 
 ## Rewriting Principles
 
@@ -63,6 +65,8 @@ Not every paragraph needs a transition word. Starting with "Additionally," "Furt
 
 ### Preserve voice and register
 If the original text is casual, keep it casual. If it's technical, keep it technical. Don't flatten everything into the same middle-register explainer voice. Match the apparent intent of the author.
+
+Use only the voice present in the source. Do not invent an authorial persona, stronger opinions, personal experience, humor, or emotional reactions to make the result seem more human.
 
 ### Unslop ≠ minimize
 Cutting words is not the same as removing slop. Stripping function words, conjunctions, and articles produces "competent AI" voice, not human voice. Real human writing has rhythm, complete thoughts, and conversational connective tissue — even when terse.
