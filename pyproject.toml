@@ -1,6 +1,6 @@
 [project]
 name = "unslop"
-version = "1.4.0"
+version = "1.5.0"
 description = "Detect and clean up AI writing patterns"
 requires-python = ">=3.13"
 dependencies = []

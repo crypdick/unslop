@@ -28,11 +28,11 @@ Good writing is specific, direct, and trusts the reader. AI writing over-explain
 ## Process
 
 1. **Read the full text first.** Understand what it's actually saying beneath the AI veneer.
-2. **Identify the worst offenders.** Read `references/ai-writing-patterns.md` for the full taxonomy. Focus on patterns from Tier 1 and Tier 2 first.
+2. **Identify the worst offenders.** Read `references/ai-writing-patterns.md` for the full taxonomy. Focus on patterns from Tier 1 and Tier 2 first. Treat Tier 3 as review cues, not automatic edits.
 3. **Rewrite, don't just swap words.** Replacing "delve" with "explore" still sounds like AI. Restructure the sentence so it says something concrete instead of gesturing vaguely.
 4. **Preserve the author's ideas.** You're removing the AI voice, not the content. If the text makes a substantive point, keep it. If a sentence is pure filler with no information content, cut it.
 5. **Draft the rewrite privately.** Do not show an intermediate version.
-6. **Run a private second-pass audit.** Check the draft for remaining Tier 1 and Tier 2 patterns, flattened rhythm, changed technical claims, lost uncertainty, and any opinion or detail you invented. Read it aloud mentally; if it sounds assembled or mechanically terse, revise it.
+6. **Run a private second-pass audit.** Check the draft for remaining Tier 1 and Tier 2 patterns, flattened rhythm, changed technical claims, lost uncertainty, and any opinion or detail you invented. Inspect Tier 3 patterns only when they cluster, repeat, obscure the meaning, or clash with the surrounding voice. Read it aloud mentally; if it sounds assembled or mechanically terse, revise it.
 7. **Output only the final cleaned text**, then a brief summary of what you changed and why.
 
 ## Rewriting Principles
@@ -42,6 +42,11 @@ Bad: "The platform serves as a comprehensive solution that leverages cutting-edg
 Good: "The platform helps people get more done."
 
 The original says nothing that the rewrite doesn't. All those extra words — "comprehensive," "leverages," "cutting-edge," "enhance" — are decoration, not information.
+
+### Name actors and mechanisms
+Vague abstractions can hide the only useful part of a sentence. Replace "This improved the process" with a supported, concrete relationship such as "Removing two fields shortened the signup form." Name who acted, what changed, or how the result happened when the source provides that information.
+
+Do not invent a mechanism to make a vague claim sound precise. If the source does not support the explanation, cut empty language, preserve the uncertainty, or flag the gap for the author.
 
 ### Let things be small
 AI inflates everything to world-historical importance. Most things are just... fine. A local bakery doesn't need to be "a beloved cornerstone of the community that has left an indelible mark on the culinary landscape." It's a bakery. People like it.
@@ -80,7 +85,7 @@ The over-cut version isn't promotional and doesn't use AI vocab — but the rhyt
 Test: read it aloud. If it sounds like a bullet list masquerading as prose, you over-cut. If the original had personality and the rewrite is flat, you over-cut. Restore the rhythm even if it adds words.
 
 ### Avoid over-correction
-Not every instance of "crucial" is AI slop. Context matters. A single em dash in a paragraph is fine — it's five em dashes that's the tell. Use judgment. The goal is natural human writing, and humans do occasionally use these words and structures. The problem is frequency and clustering, not individual occurrences.
+Not every instance of "crucial" is AI slop. Context matters. A single em dash in a paragraph is fine — it's five em dashes that's the tell. Established technical terms, useful analogies, and ordinary constructions such as "the server returns an error" may be exactly right. Use judgment. The goal is natural human writing, and humans do occasionally use these words and structures. The problem is frequency, clustering, ambiguity, or mismatch with the surrounding voice, not individual occurrences.
 
 ## What NOT to do
 

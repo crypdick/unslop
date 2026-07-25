@@ -125,9 +125,67 @@ List the actual topics or state the relationship between them. Keep a range when
 
 ## Tier 3: Stylistic Tells (subtler, but accumulate)
 
-### Excessive Em Dashes
+Tier 3 patterns are prompts to inspect the prose, not prohibited constructions. Rewrite them when they cluster, repeat, obscure the meaning, manufacture importance, or conflict with the surrounding voice. Preserve isolated uses that are clear, conventional, or characteristic of the author.
 
-AI uses em dashes (—) far more frequently than most human writers, often multiple per paragraph.
+### Decorative Punctuation
+
+AI often uses repeated em dashes, dramatic colons, and fragments to manufacture a reveal-and-punchline cadence:
+- "The conclusion was clear: the framework had changed everything."
+- "The next step — the one that really matters — is alignment."
+- "Clear. Direct. Transformative."
+
+Rewrite punctuation when it is doing rhetorical work that the content has not earned. Keep a dash, colon, or fragment when it is well placed and fits the author's voice. Density and repetition are the signal, not the mark itself.
+
+### Decorative Compression
+
+AI coins hyphenated labels, slogans, and metaphorical summaries to make ordinary ideas sound compact or memorable:
+- "an insight-first workflow"
+- "the alignment loop"
+- "a reveal-style explanation"
+
+Restate the literal action or relationship when the label substitutes for an explanation. Keep established terms and wording that the author already uses.
+
+### Manufactured Sentence Rhythm
+
+AI can produce runs of clipped fragments for emphasis or pack loosely related clauses into an over-controlled sentence. Both create prose that sounds assembled:
+- "The edit is clear. Direct. Human. It lands."
+- "The parser reads the file, the validator checks the fields, the writer saves the record, and the dashboard updates."
+
+Split or join sentences when the rhythm obscures the reasoning or differs sharply from the surrounding prose. Do not enforce a sentence-length or clause-count limit.
+
+### Pseudo-Agency
+
+AI often makes abstractions sound like actors:
+- "The strategy unlocks growth."
+- "The framework drives alignment."
+- "The result speaks to a broader shift."
+
+Name the actor or mechanism when the construction hides it. Keep conventional technical or academic usage such as "the server returns an error" or "the paper argues."
+
+### Unexplained or Invented Jargon
+
+AI may invent compact terminology or use technical language to make a simple claim sound authoritative. Replace jargon when it is unnecessary, undefined for the intended audience, or less precise than ordinary language.
+
+Keep established technical terms. A general dictionary is not the test; audience, precision, and context are.
+
+### Decorative Analogies
+
+AI analogies sometimes restate a simple idea with extra imagery instead of explaining it. Cut an analogy when the literal explanation already does the work.
+
+Keep an analogy when it makes a difficult relationship easier to understand or clearly belongs to the author's voice.
+
+### Ambiguous References
+
+Words such as "this," "that," "the result," and "the outcome" become a problem when they could refer to several earlier ideas. Name the specific action or claim when the reference is unclear.
+
+Do not mechanically replace every demonstrative pronoun or summary noun. Clear references are ordinary prose.
+
+### Stacked Rhetorical Questions
+
+Several rhetorical questions in a row can manufacture uncertainty or drama:
+- "Does the rewrite preserve the voice? Does it keep the facts? Does it avoid over-correcting?"
+
+State the issue directly when the questions do not invite answers. Keep real questions in interviews, FAQs, correspondence, or passages where the author is genuinely asking the reader to consider them.
 
 ### Collaborative/Direct Address
 
@@ -161,12 +219,15 @@ Starting every paragraph or sentence with:
 - "In terms of..."
 - "The reality is that..."
 
-### Excessive Structural Scaffolding
+### Formulaic Scaffolding and Paragraph Structure
 
 Over-signposting:
 - "First, ... Second, ... Third, ... Finally, ..."
 - "There are three key aspects to consider:"
+- "Two cautions."
 - "Let's break this down into components:"
+
+Repeated announcement-support-summary paragraphs can also make a document feel templated. Remove scaffolding or vary the structure when several paragraphs use the same mold. Keep topic sentences, explicit counts, and lists when they help readers navigate the material.
 
 ### Inline-Header Vertical Lists
 
@@ -249,4 +310,7 @@ These patterns are editing signals, not proof that AI wrote the text. Look for c
 - Curly quotes, one em dash, one three-item list, or one emoji mean little on their own.
 - A "from X to Y" range is fine when X and Y are comparable endpoints.
 - Bold-label lists and emoji may be deliberate interface or brand conventions.
+- Preserve established jargon, useful analogies, clear pronoun references, and conventional inanimate subjects.
+- Prefer density or sequence checks over flagging one punctuation mark, question, modifier, or sentence shape.
+- Keep patterns that require judging clarity, usefulness, or authorial voice out of automated detection.
 - Preserve accurate uncertainty. Removing model-specific disclaimers does not authorize guessing.

@@ -64,7 +64,7 @@ The detection script and skill reference a taxonomy of AI writing patterns organ
 
 - **Tier 1 (dead giveaways):** vocabulary clusters ("delve", "tapestry", "pivotal", "robust"), copulative avoidance ("serves as" instead of "is"), formulaic significance framing ("is a testament to"), the "not just X, but Y" construction
 - **Tier 2 (strong signals):** promotional tone, dangling participle filler clauses, rule-of-three abuse, synonym cycling, vague attribution ("experts argue"), formulaic conclusions, and false ranges
-- **Tier 3 (stylistic tells):** em dash overuse, hedge stacking, transition word spam, sycophantic openers, pasted chatbot artifacts, knowledge-cutoff disclaimers, templated inline-header lists, and decorative emoji
+- **Tier 3 (contextual tells):** decorative punctuation and compression, manufactured sentence rhythm, pseudo-agency, unexplained jargon, decorative analogies, ambiguous references, stacked rhetorical questions, transition spam, and templated structure
 
 The script catches what regex can. The skill catches what requires judgment — superficial analysis masquerading as depth, significance inflation with novel phrasing, and the general flatness of AI prose.
 

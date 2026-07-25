@@ -98,6 +98,63 @@
       "detector_categories": [
         "formulaic_phrase"
       ]
+    },
+    {
+      "id": "precision-and-ambiguous-reference",
+      "focus": "Remove a vague summary while preserving the concrete action and without inventing a result.",
+      "input": "The team removed two fields from the signup form. This made the process easier and improved the outcome.",
+      "must_preserve": [
+        "The team removed two fields from the signup form."
+      ],
+      "must_avoid": [
+        "This made the process easier",
+        "improved the outcome"
+      ],
+      "detector_categories": []
+    },
+    {
+      "id": "stacked-rhetorical-questions",
+      "focus": "Turn manufactured questions into a direct statement while preserving every review criterion.",
+      "input": "Does the rewrite preserve the author's uncertainty? Does it keep the technical terms? Does it avoid inventing evidence? The reviewer checks all three before publishing.",
+      "must_preserve": [
+        "author's uncertainty",
+        "technical terms",
+        "inventing evidence",
+        "before publishing"
+      ],
+      "must_avoid": [
+        "Does the rewrite preserve",
+        "Does it keep",
+        "Does it avoid"
+      ],
+      "detector_categories": []
+    },
+    {
+      "id": "contextual-signals-not-bans",
+      "focus": "Remove empty promotion without deleting useful technical terms, punctuation, a conventional inanimate subject, or an explanatory analogy.",
+      "input": "The server returns 429 after the TLS handshake — not 500. The queue works like a waiting room: each request keeps its place until a worker is free. This quietly unlocks a robust retry paradigm.",
+      "must_preserve": [
+        "The server returns 429 after the TLS handshake — not 500.",
+        "The queue works like a waiting room: each request keeps its place until a worker is free."
+      ],
+      "must_avoid": [
+        "quietly unlocks a robust retry paradigm"
+      ],
+      "detector_categories": []
+    },
+    {
+      "id": "decorative-compression-and-pseudo-agency",
+      "focus": "Cut coined labels and abstract agency while preserving the concrete process.",
+      "input": "An insight-first framework unlocks alignment by activating a feedback-driven decision loop. The team compares each revision with three examples before publishing.",
+      "must_preserve": [
+        "The team compares each revision with three examples before publishing."
+      ],
+      "must_avoid": [
+        "insight-first framework",
+        "unlocks alignment",
+        "feedback-driven decision loop"
+      ],
+      "detector_categories": []
     }
   ]
 }
