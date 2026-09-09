@@ -11,6 +11,8 @@ The repository separates editing guidance, scanning, and development checks:
 
 - `skills/unslop/SKILL.md` describes the editing workflow.
   `skills/unslop/references/ai-writing-patterns.md` contains its taxonomy.
+  Its `scripts/` links expose the four runtime modules to skill-only installers;
+  dereferencing those links produces a standalone skill without duplicate source.
 - `scripts/detect_slop.py` is the command-line entry point. It discovers files,
   reads input, writes JSON, and chooses exit status. It also exports `scan_text`,
   `tokenize_lower`, `Finding`, and `FileReport` for callers.
