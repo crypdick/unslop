@@ -7,12 +7,12 @@ Development dependencies belong in the uv development group, with `uv.lock` trac
 ## Small functions and explicit data
 
 Compose scanning functions instead of introducing detector class hierarchies.
-`Finding` and `FileReport` carry results; pattern tables belong in
+`Finding` and `FileReport` carry results. Pattern tables belong in
 `scripts/slop_patterns.py`. Name shared code after its purpose. The file-length
 hook limits Python files to 400 logical lines, including continuation lines.
 
 Use `Severity` for the finite set of severity labels. Introduce `NewType` when two
-otherwise identical scalar types represent distinct concepts that callers could
+otherwise identical scalar types represent distinct concepts that callers might
 confuse. Do not wrap ordinary word counts or loop indexes without a concrete benefit.
 
 ## Parse at the boundary
@@ -24,8 +24,8 @@ constraints there. Type annotations, `NewType`, and frozen dataclasses do not
 validate untrusted values by themselves.
 
 Keep diagnostics on stderr and report output on stdout. Catch specific expected
-I/O errors and explain skipped files. Ruff owns print and logging checks; print is
-allowed in these CLI and hook scripts. If logging is introduced, pass contextual
+I/O errors and explain skipped files. Ruff checks print and logging calls and allows
+print in these CLI and hook scripts. If you introduce logging, pass contextual
 fields through `extra` instead of building messages with f-strings.
 
 ## Behavior and documentation

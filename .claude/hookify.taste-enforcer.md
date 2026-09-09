@@ -6,15 +6,15 @@ pattern: don.?t use|always prefer|avoid|never do|instead of|I hate when|stop usi
 action: warn
 ---
 
-Keyword hit. The user might have expressed a coding preference or taste.
+A keyword matched. The user might have expressed a coding preference or taste.
 
-Reminder: always do the following when the user expresses a code preference that should be enforced going forward. Determine whether it can be codified as:
+When the user expresses a coding preference that needs ongoing enforcement, determine which of these mechanisms can enforce it:
 
-1. **A prek hook script** — if it's about code patterns that can be detected statically (e.g., "don't use bare except", "avoid print statements"). Create or update a script in `scripts/prek_hooks/` and wire it into `prek.toml`.
+1. **A prek hook script:** Use a script for code patterns that static checks can detect, such as bare `except` clauses or print statements. Create or update a script in `scripts/prek_hooks/` and configure it in `prek.toml`.
 
-2. **A hookify rule** — if it's about Claude's behavior during sessions (e.g., "don't create utils.py files", "always use NewType for IDs"). Create a `.claude/hookify.{name}.md` rule.
+2. **A hookify rule:** Use a rule for Claude's behavior during sessions, such as avoiding `utils.py` files or using `NewType` for IDs. Create a `.claude/hookify.{name}.md` rule, replacing `{name}` with a descriptive rule name.
 
-3. **A pyproject.toml setting** — if it maps to an existing tool's configuration (e.g., "ban star imports" → ruff rule).
+3. **A `pyproject.toml` setting:** Use a setting for preferences that map to an existing tool's configuration, such as a Ruff rule that bans star imports.
 
 If the preference is already enforced by an existing hook or rule but the user still had to say something about it, that means the existing enforcement failed to do its job. Identify why it didn't catch the issue (pattern too narrow? wrong event type? missing edge case?) and propose a fix to strengthen the existing hook or rule.
 

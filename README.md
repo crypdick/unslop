@@ -10,7 +10,7 @@ A [Claude Code plugin](https://docs.claude.com/en/docs/claude-code-plugins) for 
 
 ## Install
 
-Add to your Claude Code `settings.json`:
+Add the following configuration to your Claude Code `settings.json` file:
 
 ```json
 {
@@ -34,21 +34,23 @@ Then restart Claude Code or run `/reload-plugins`.
 
 ### Skill (interactive)
 
-In any Claude Code conversation:
+In any Claude Code conversation, enter either of these prompts:
 
-```
+```text
 unslop this paragraph
 ```
 
-```
+```text
 /unslop
 ```
 
-Paste text that sounds like AI wrote it and ask Claude to clean it up. The skill triggers on phrases like "unslop", "de-slop", "remove AI writing", "sounds like ChatGPT", etc.
+Paste text that sounds like AI wrote it and ask Claude to clean it up. The skill triggers on phrases such as "unslop", "de-slop", "remove AI writing", and "sounds like ChatGPT".
 
 ### Script (batch scanning)
 
-```bash
+Scan files with the following commands. Replace `FILE_OR_DIR` with a file or directory path:
+
+```shell
 uv run scripts/detect_slop.py FILE_OR_DIR       # scan files
 uv run scripts/detect_slop.py -v docs/           # verbose (show low-severity)
 uv run scripts/detect_slop.py --json report.json  # JSON output
@@ -56,8 +58,8 @@ uv run scripts/detect_slop.py --threshold 3.0 src/  # only flag high-scoring fil
 echo "some text" | uv run scripts/detect_slop.py -   # stdin
 ```
 
-Exit code 0 means no score exceeds the threshold, 1 means slop detected above it,
-and 2 means invalid arguments or no matching text files.
+Exit code `0` means no score exceeds the threshold, `1` means a score exceeds it,
+and `2` means invalid arguments or no matching text files.
 
 ## What it catches
 
@@ -71,7 +73,9 @@ The script's scores help you choose which files to review. The skill also looks 
 
 ## Development
 
-```bash
+Prepare the development environment and run checks with these commands:
+
+```shell
 uv sync --locked                       # install the locked development tools
 uv run prek install                    # enable Git hooks
 uv run prek run --all-files             # run all quality gates
@@ -79,15 +83,16 @@ uv run pytest                          # tests and 100% branch coverage
 uv run scripts/detect_slop.py -v docs/   # scan documentation
 ```
 
-The scanner also runs with plain Python 3.13 or later; it has no runtime
-dependencies. Coverage includes CLI subprocesses and is viewable in
-`htmlcov/index.html`. See [CONVENTIONS.md](CONVENTIONS.md),
+The scanner also runs with plain Python 3.13 or later and has no runtime
+dependencies. Coverage includes command-line subprocesses. View the report in
+`htmlcov/index.html`. See [the design conventions](CONVENTIONS.md),
 [the architecture map](docs/ARCHITECTURE.md), and
 [the quality scorecard](docs/QUALITY.md) for development guidance.
 
-If the `new-feature` CLI is installed, `new-feature create NAME --no-agent`
+If you have the `new-feature` command-line tool installed, `new-feature create NAME --no-agent`
 creates an isolated worktree and runs the setup configured in `pyproject.toml`.
-Change into the printed worktree path to work there. Each worktree has its own
-environment and test caches; no services or credentials need setup.
+Replace `NAME` with your feature name. Change into the printed worktree path to
+work there. Each worktree has its own environment and test caches. No services
+or credentials need setup.
 
 `evals/rewrite_cases.json` contains manual rewrite cases with facts that must survive and phrases the final edit should remove. Use it when changing the skill prompt or comparing model behavior.

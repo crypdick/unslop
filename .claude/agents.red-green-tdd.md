@@ -1,6 +1,6 @@
-## Red/Green TDD
+# Red and green test-driven development
 
-For behavior changes and bug fixes, use red/green/refactor:
+For behavior changes and bug fixes, use the red, green, and refactor cycle:
 
 1. Red: add or update a focused failing test that proves the desired behavior or reproduces the bug. Run the targeted test and confirm it fails for the expected reason.
 2. Green: implement the smallest change that makes the test pass. Run the targeted test again and confirm it passes.

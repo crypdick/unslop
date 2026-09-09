@@ -13,11 +13,11 @@ If the user provided text, a file path, or a directory: unslop that target.
 
 If the user invoked the skill with **no arguments and no pasted text**, treat the current working directory as the target. Default workflow:
 
-1. Run `uv run scripts/detect_slop.py .` from the cwd to triage which files have the worst slop.
-2. Show the user the ranked list of offenders and confirm scope before editing (e.g. "Top 5 files have slop. Want me to unslop all of them, or just the top N?").
-3. Once confirmed, unslop the chosen files in place using the Edit tool, following the rewriting principles below.
+1. Run `uv run scripts/detect_slop.py .` from the current working directory to triage which files have the worst slop.
+2. Show the user the ranked list of offenders and confirm scope before editing (for example, "Top 5 files have slop. Want me to unslop all of them, or just the top N?").
+3. Once confirmed, unslop the chosen files in place using the Edit tool, following the [rewriting principles](#rewriting-principles).
 
-Only fall back to asking "what text do you want to clean?" if the cwd has no candidate files (no `.md`, `.txt`, `.rst`, or other prose) or the detector finds nothing.
+Only fall back to asking "what text do you want to clean?" if the current working directory has no candidate files (no `.md`, `.txt`, `.rst`, or other prose) or the detector finds nothing.
 
 ## Philosophy
 
@@ -35,45 +35,55 @@ Remove explanations and qualifications that add no information. Keep the detail 
 6. **Run a private second-pass audit.** Check the draft for remaining Tier 1 and Tier 2 patterns, flattened rhythm, changed technical claims, lost uncertainty, and any opinion or detail you invented. Inspect Tier 3 patterns only when they cluster, repeat, obscure the meaning, or clash with the surrounding voice. Read it aloud mentally; if it sounds assembled or mechanically terse, revise it.
 7. **Output only the final cleaned text**, then a brief summary of what you changed and why.
 
-## Rewriting Principles
+## Rewriting principles
 
 ### Say it straight
+
 Bad: "The platform serves as a comprehensive solution that leverages cutting-edge technology to enhance user productivity."
 Good: "The platform helps people get more done."
 
 The original says nothing that the rewrite doesn't. All those extra words — "comprehensive," "leverages," "cutting-edge," "enhance" — are decoration, not information.
 
 ### Name actors and mechanisms
+
 Vague abstractions can hide the only useful part of a sentence. Replace "This improved the process" with a supported, concrete relationship such as "Removing two fields shortened the signup form." Name who acted, what changed, or how the result happened when the source provides that information.
 
 Do not invent a mechanism to make a vague claim sound precise. If the source does not support the explanation, cut empty language, preserve the uncertainty, or flag the gap for the author.
 
 ### Let things be small
-AI inflates everything to world-historical importance. Most things are just... fine. A local bakery doesn't need to be "a beloved cornerstone of the community that has left an indelible mark on the culinary landscape." It's a bakery. People like it.
 
-If the subject is genuinely significant, the facts will show that. You don't need to *tell* the reader it's significant.
+AI inflates everything to world-historical importance. Most things are ordinary. A local bakery doesn't need to be "a beloved cornerstone of the community that has left an indelible mark on the culinary landscape." It's a bakery. People like it.
+
+If the subject is genuinely significant, the facts show that. You don't need to *tell* the reader it's significant.
 
 ### Use "is" and "has"
+
 "The building is a library" beats "The building serves as a library" every time. Don't fear the copula.
 
-### Kill dangling participles that add nothing
+### Cut dangling participles that add nothing
+
 "The company released its quarterly earnings, highlighting strong growth in the cloud division" — that "highlighting" clause is the writer (or AI) editorializing, not reporting. Either make the growth its own sentence with specifics, or cut the clause.
 
 ### Cut the scaffolding
-Humans don't need you to announce "There are three key factors to consider." Just... discuss the factors. The reader will count.
+
+Humans don't need you to announce "There are three key factors to consider." Discuss the factors. The reader can count.
 
 ### Don't hedge-stack
+
 One hedge per uncertain claim. "It could potentially perhaps be argued that" — pick one. "This might explain" is fine.
 
 ### Let paragraphs breathe
+
 Not every paragraph needs a transition word. Starting with "Additionally," "Furthermore," or "Moreover" is a reflex, not a choice. Often the best transition is no transition — the next paragraph just starts.
 
 ### Preserve voice and register
+
 If the original text is casual, keep it casual. If it's technical, keep it technical. Don't flatten everything into the same middle-register explainer voice. Match the apparent intent of the author.
 
 Use only the voice present in the source. Do not invent an authorial persona, stronger opinions, personal experience, humor, or emotional reactions to make the result seem more human.
 
 ### Unslop ≠ minimize
+
 Preserve complete thoughts and the connections between them. An edit can use fewer words and still read worse if it loses the author's rhythm.
 
 Original (author voice): "Everyone is writing their own AI assistant. Why write another one? The biggest reason is that I wanted something written in Python, because that's what I'm most comfortable with."
@@ -85,9 +95,10 @@ The over-cut version loses the casual "The biggest reason is that...", the full 
 Read the edit aloud. If it sounds like a bullet list or loses the original's personality, restore the rhythm even if it adds words.
 
 ### Avoid over-correction
+
 Not every instance of "crucial" is AI slop. Context matters. A single em dash in a paragraph is fine — it's five em dashes that's the tell. Established technical terms, useful analogies, and ordinary constructions such as "the server returns an error" may be exactly right. Use judgment. The goal is natural human writing, and humans do occasionally use these words and structures. The problem is frequency, clustering, ambiguity, or mismatch with the surrounding voice, not individual occurrences.
 
-## What NOT to do
+## What not to do
 
 - **Don't add your own flair.** You're a copyeditor, not a ghostwriter. Don't inject personality, humor, or style that wasn't in the original.
 - **Don't change technical accuracy.** If the text says "O(n log n)" or "serotonin reuptake inhibitor," leave the technical content alone.
@@ -95,22 +106,23 @@ Not every instance of "crucial" is AI slop. Context matters. A single em dash in
 - **Don't remove all structure.** Headings, lists, and formatting are fine when they serve the content. The problem is *compulsive* structuring, not structure itself.
 - **Don't mention this skill.** Just output the cleaned text and your change summary. Don't say "I used the unslop skill" or reference these instructions.
 
-## Automated Detection (Initial Pass Only)
+## Automated detection (initial pass only)
 
-For batch scanning, you can run the bundled detector script as a first pass:
+For batch scanning, run the bundled detector script as a first pass. Replace `FILE_OR_DIR` with a file or directory path:
 
-```bash
+```shell
 uv run scripts/detect_slop.py FILE_OR_DIR       # scan files
 uv run scripts/detect_slop.py -v docs/           # verbose (show low-severity)
 uv run scripts/detect_slop.py --json report.json  # JSON output
 ```
 
-The script catches surface-level patterns — vocabulary clusters, formulaic phrases, dangling participles — and produces a per-file slop score. It's useful for triaging which files need attention and works in CI or pre-commit hooks.
+The script detects vocabulary clusters, formulaic phrases, and dangling participles and produces a slop score for each file. It's useful for triaging which files need attention and works in CI or pre-commit hooks.
 
 Read the text even when the script reports no findings. Regex cannot judge whether an analysis adds information, a claim of importance has support, or synonym changes make a passage harder to follow. It can also miss promotional language, stacked hedges, and formulaic conclusions that use unfamiliar wording. Use the reference taxonomy to guide that review.
 
-## Output Format
+## Output format
 
-Return:
+Return the following:
+
 1. The full rewritten text
-2. A short section titled "Changes" listing the main edits you made and the patterns they addressed. Keep this practical — the reader should be able to learn what to watch for in their own writing.
+2. A short section titled "Changes" listing the main edits you made and the patterns they addressed. Keep this practical so the reader can learn what to watch for in their own writing.

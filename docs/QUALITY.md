@@ -1,6 +1,7 @@
 # Quality scorecard
 
-Assessed on 2026-09-09. Grades reflect measured checks, not detector accuracy.
+Assessed on 2026-09-09. The table compares verification scope across repository
+areas. Grades reflect measured checks, not detector accuracy.
 
 | Area | Coverage | Types | Maximum complexity | Test health | Grade |
 | --- | --- | --- | --- | --- | --- |
@@ -14,15 +15,15 @@ The suite has 135 tests. Pytest uses at most four workers and a 20-second per-te
 timeout. Coverage includes CLI subprocesses and every runtime module under
 `scripts/`; development hooks and the trivial `__main__` dispatch are excluded.
 No network recordings are needed because the tests make no external service calls.
-Tests are checked by mypy, with unannotated test definitions allowed; production
-and hook functions must satisfy the full strict configuration.
+Mypy checks tests but allows unannotated test definitions. Production and hook
+functions must satisfy the full strict configuration.
 
 `uv run prek run --all-files` runs hygiene, secrets, lock freshness, schema,
 dependency, dead-code, type, formatting, complexity, custom checks, and tests.
 CI runs the same command. `uv run pytest` prints uncovered lines as a fix list and
 writes a browsable report to `htmlcov/index.html`. The coverage floor stays at 100%.
 
-## Maintaining the grades
+## Maintain the grades
 
 Update this scorecard when verification scope changes materially or a domain loses
 coverage or type safety. Grade A means the area's applicable automated gates pass

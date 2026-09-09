@@ -1,20 +1,22 @@
 # Architecture
 
 Unslop helps editors identify formulaic AI writing and rewrite it without losing
-facts or voice. The plugin's skill supplies editorial judgment; an offline Python
-scanner ranks files using regex matches and weighted findings. The scanner does
-not call a model or perform rewrites.
+facts or voice. The plugin's skill supplies editorial judgment. An offline Python
+scanner ranks files using regular expression matches and weighted findings. The
+scanner does not call a model or perform rewrites.
 
 ## Codemap
 
-- `skills/unslop/SKILL.md` describes the editing workflow;
+The repository separates editing guidance, scanning, and development checks:
+
+- `skills/unslop/SKILL.md` describes the editing workflow.
   `skills/unslop/references/ai-writing-patterns.md` contains its taxonomy.
 - `scripts/detect_slop.py` is the command-line entry point. It discovers files,
   reads input, writes JSON, and chooses exit status. It also exports `scan_text`,
   `tokenize_lower`, `Finding`, and `FileReport` for callers.
 - `scripts/slop_scanner.py` defines `Finding`, `FileReport`, and `Severity`.
   `scan_text` combines line and document signals into a weighted score.
-- `scripts/slop_patterns.py` holds vocabulary and compiled regex tables.
+- `scripts/slop_patterns.py` holds vocabulary and compiled regular expression tables.
 - `scripts/slop_reports.py` formats findings and summaries for terminal output.
 - `tests/` checks scanner and CLI behavior; `evals/rewrite_cases.json` supplies
   manual rewrite constraints and expected detector categories.
