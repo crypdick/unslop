@@ -30,9 +30,9 @@ Add the following configuration to your Claude Code `settings.json` file:
 
 Then restart Claude Code or run `/reload-plugins`.
 
-For a standalone skill installation, copy `skills/unslop/` with symlinks
-dereferenced (for example, `cp -RL`). This includes the detector and its runtime
-modules. The skill commands resolve the detector from the installed skill directory.
+For a standalone skill installation, copy `skills/unslop/`. It contains the detector
+and its runtime modules as regular files, so GitHub ZIP installs also work. The skill
+commands resolve the detector from the installed skill directory.
 
 ## Usage
 

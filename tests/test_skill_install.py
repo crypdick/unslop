@@ -22,3 +22,11 @@ def test_standalone_skill_detector_from_unrelated_directory(tmp_path):
     )
     assert result.returncode == 0, result.stderr
     assert "No slop detected" in result.stdout
+
+
+def test_skill_bundle_contains_regular_synchronized_modules():
+    root = Path(__file__).resolve().parents[1]
+    for name in ("detect_slop.py", "slop_patterns.py", "slop_scanner.py", "slop_reports.py"):
+        bundled = root / "skills" / "unslop" / "scripts" / name
+        assert not bundled.is_symlink(), "GitHub ZIP installers cannot install external symlinks"
+        assert bundled.read_bytes() == (root / "scripts" / name).read_bytes()

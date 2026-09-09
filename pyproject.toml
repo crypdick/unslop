@@ -141,6 +141,8 @@ max-complexity = 15
 "tests/**/*.py" = ["ANN", "ARG", "C901", "FBT", "F841", "PLR0912", "PLR0913", "PLR0915", "S101", "S603", "SLF", "T201"]
 # Standalone scripts are imported from scripts/ without a runtime package.
 "scripts/**/*.py" = ["INP001", "T201"]
+# Bundled copies have the same standalone CLI contract as their canonical sources.
+"skills/unslop/scripts/*.py" = ["INP001", "T201"]
 # AST visitor names are prescribed by the standard library.
 "scripts/prek_hooks/check_private_test_imports.py" = ["N802"]
 
