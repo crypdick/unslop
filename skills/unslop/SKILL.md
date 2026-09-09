@@ -13,7 +13,7 @@ If the user provided text, a file path, or a directory: unslop that target.
 
 If the user invoked the skill with **no arguments and no pasted text**, treat the current working directory as the target. Default workflow:
 
-1. Run `uv run scripts/detect_slop.py .` from the current working directory to triage which files have the worst slop.
+1. Set `UNSLOP_SKILL_DIR` as described under [Automated detection](#automated-detection-initial-pass-only), then run `uv run --no-project "$UNSLOP_SKILL_DIR/scripts/detect_slop.py" .` from the current working directory to triage which files have the worst slop.
 2. Show the user the ranked list of offenders and confirm scope before editing (for example, "Top 5 files have slop. Want me to unslop all of them, or just the top N?").
 3. Once confirmed, unslop the chosen files in place using the Edit tool, following the [rewriting principles](#rewriting-principles).
 
@@ -108,12 +108,12 @@ Not every instance of "crucial" is AI slop. Context matters. A single em dash in
 
 ## Automated detection (initial pass only)
 
-For batch scanning, run the bundled detector script as a first pass. Replace `FILE_OR_DIR` with a file or directory path:
+For batch scanning, run the bundled detector script as a first pass. Set `UNSLOP_SKILL_DIR` to the absolute directory containing this `SKILL.md`. Keep the current working directory at the writing target so relative input paths retain their meaning. `--no-project` prevents uv from loading the target project's dependencies. Replace `FILE_OR_DIR` with a file or directory path:
 
 ```shell
-uv run scripts/detect_slop.py FILE_OR_DIR       # scan files
-uv run scripts/detect_slop.py -v docs/           # verbose (show low-severity)
-uv run scripts/detect_slop.py --json report.json  # JSON output
+uv run --no-project "$UNSLOP_SKILL_DIR/scripts/detect_slop.py" FILE_OR_DIR       # scan files
+uv run --no-project "$UNSLOP_SKILL_DIR/scripts/detect_slop.py" -v docs/           # verbose (show low-severity)
+uv run --no-project "$UNSLOP_SKILL_DIR/scripts/detect_slop.py" --json report.json FILE_OR_DIR  # JSON output
 ```
 
 The script detects vocabulary clusters, formulaic phrases, and dangling participles and produces a slop score for each file. It's useful for triaging which files need attention and works in CI or pre-commit hooks.

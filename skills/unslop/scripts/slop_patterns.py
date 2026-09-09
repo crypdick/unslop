@@ -1,0 +1,1 @@
+../../../scripts/slop_patterns.py

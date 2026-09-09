@@ -11,7 +11,7 @@ areas. Grades reflect measured checks, not detector accuracy.
 | Rewrite skill and taxonomy | not executable Python | not applicable | not applicable | manual corpus; constraints checked automatically | B |
 | Development hooks | outside runtime coverage | strict mypy | Ruff limit 15 | linting and hook smoke checks | B |
 
-The suite has 135 tests. Pytest uses at most four workers and a 20-second per-test
+The suite has 136 tests. Pytest uses at most four workers and a 20-second per-test
 timeout. Coverage includes CLI subprocesses and every runtime module under
 `scripts/`; development hooks and the trivial `__main__` dispatch are excluded.
 No network recordings are needed because the tests make no external service calls.

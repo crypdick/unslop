@@ -1,0 +1,1 @@
+../../../scripts/slop_scanner.py
