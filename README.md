@@ -56,7 +56,8 @@ uv run scripts/detect_slop.py --threshold 3.0 src/  # only flag high-scoring fil
 echo "some text" | uv run scripts/detect_slop.py -   # stdin
 ```
 
-Exit code 0 means clean, 1 means slop detected.
+Exit code 0 means no score exceeds the threshold, 1 means slop detected above it,
+and 2 means invalid arguments or no matching text files.
 
 ## What it catches
 
@@ -71,8 +72,22 @@ The script catches what regex can. The skill catches what requires judgment — 
 ## Development
 
 ```bash
-uv run pytest                          # run tests
-uv run scripts/detect_slop.py -v .     # scan the repo itself
+uv sync --locked                       # install the locked development tools
+uv run prek install                    # enable Git hooks
+uv run prek run --all-files             # run all quality gates
+uv run pytest                          # tests and 100% branch coverage
+uv run scripts/detect_slop.py -v docs/   # scan documentation
 ```
+
+The scanner also runs with plain Python 3.13 or later; it has no runtime
+dependencies. Coverage includes CLI subprocesses and is viewable in
+`htmlcov/index.html`. See [CONVENTIONS.md](CONVENTIONS.md),
+[the architecture map](docs/ARCHITECTURE.md), and
+[the quality scorecard](docs/QUALITY.md) for development guidance.
+
+If the `new-feature` CLI is installed, `new-feature create NAME --no-agent`
+creates an isolated worktree and runs the setup configured in `pyproject.toml`.
+Change into the printed worktree path to work there. Each worktree has its own
+environment and test caches; no services or credentials need setup.
 
 `evals/rewrite_cases.json` contains manual rewrite cases with facts that must survive and phrases the final edit should remove. Use it when changing the skill prompt or comparing model behavior.

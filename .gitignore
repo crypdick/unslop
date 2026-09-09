@@ -2,7 +2,11 @@
 __pycache__/
 *.pyc
 .pytest_cache/
-uv.lock
 .new-feature/
 .worktrees/
 *.local.toml
+.coverage*
+htmlcov/
+.mypy_cache/
+.ruff_cache/
+.env

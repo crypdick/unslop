@@ -1,11 +1,195 @@
 [project]
 name = "unslop"
-version = "1.5.0"
+version = "1.5.1"
 description = "Detect and clean up AI writing patterns"
 requires-python = ">=3.13"
 dependencies = []
 
 [dependency-groups]
 dev = [
+    "deptry>=0.25.1",
+    "detect-secrets>=1.5.0",
+    "flynt>=1.0.6",
+    "mypy>=2.3.1",
+    "prek>=0.5.2",
     "pytest>=9.0.2",
+    "pytest-cov>=7.1.0",
+    "pytest-timeout>=2.4.0",
+    "pytest-xdist>=3.8.0",
+    "pyupgrade>=3.21.2",
+    "ruff>=0.16.6",
+    "validate-pyproject-schema-store>=2026.9.4",
+    "validate-pyproject[all]>=0.26",
+    "vulture>=2.16",
 ]
+
+[tool.ruff]
+line-length = 110
+
+[tool.ruff.lint]
+preview = true
+explicit-preview-rules = true
+select = [
+    "A",
+    "ANN001",
+    "ANN002",
+    "ANN003",
+    "ANN201",
+    "ANN202",
+    "ANN204",
+    "ANN205",
+    "ANN206",
+    "ANN401",
+    "ARG",
+    "ASYNC",
+    "B",
+    "BLE",
+    "C4",
+    "COM818",
+    "C90",
+    "D402",
+    "D414",
+    "D418",
+    "D419",
+    "DOC102",
+    "DOC202",
+    "DOC403",
+    "DTZ",
+    "E",
+    "ERA",
+    "EXE",
+    "F",
+    "FA",
+    "FBT",
+    "FURB101",
+    "FURB103",
+    "FURB122",
+    "FURB129",
+    "FURB132",
+    "FURB157",
+    "FURB161",
+    "FURB162",
+    "FURB168",
+    "FURB169",
+    "FURB171",
+    "FURB177",
+    "FURB181",
+    "FURB188",
+    "G",
+    "I",
+    "INP",
+    "ISC004",
+    "LOG",
+    "N",
+    "PERF",
+    "PGH",
+    "PIE",
+    "PLC",
+    "PLE",
+    "PLR0124",
+    "PLR0133",
+    "PLR0206",
+    "PLR0911",
+    "PLR0912",
+    "PLR0913",
+    "PLR0915",
+    "PLR1702",
+    "PLR1704",
+    "PLR1711",
+    "PLR1714",
+    "PLR1716",
+    "PLR1722",
+    "PLR1733",
+    "PLR1736",
+    "PLR5501",
+    "PLW",
+    "PT",
+    "PTH",
+    "RET",
+    "RSE",
+    "RUF",
+    "S",
+    "SIM",
+    "SLF",
+    "SLOT",
+    "T10",
+    "T20",
+    "TC",
+    "TID",
+    "TRY004",
+    "TRY201",
+    "TRY203",
+    "TRY300",
+    "TRY400",
+    "TRY401",
+    "UP",
+    "W",
+    "YTT",
+]
+ignore = [
+    "E501",
+    "TRY003",
+]
+
+[tool.ruff.format]
+quote-style = "double"
+
+[tool.ruff.lint.mccabe]
+max-complexity = 15
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**/*.py" = ["ANN", "ARG", "C901", "FBT", "F841", "PLR0912", "PLR0913", "PLR0915", "S101", "S603", "SLF", "T201"]
+# Standalone scripts are imported from scripts/ without a runtime package.
+"scripts/**/*.py" = ["INP001", "T201"]
+# AST visitor names are prescribed by the standard library.
+"scripts/prek_hooks/check_private_test_imports.py" = ["N802"]
+
+[tool.mypy]
+strict = true
+warn_return_any = true
+warn_unused_configs = true
+show_error_codes = true
+pretty = true
+mypy_path = "scripts"
+files = ["scripts", "tests"]
+
+[[tool.mypy.overrides]]
+module = ["tests.*"]
+disallow_untyped_defs = false
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = [".", "scripts"]
+addopts = "--no-header -n auto --maxprocesses=4 -q --durations=5 --durations-min=1.0 --cov --cov-report=term-missing --cov-report=html --failed-first"
+timeout = 20
+timeout_method = "thread"
+
+[tool.coverage.run]
+branch = true
+source = ["scripts"]
+omit = ["scripts/prek_hooks/*"]
+# CLI subprocess tests contribute to the same coverage report.
+patch = ["subprocess"]
+
+[tool.coverage.report]
+fail_under = 100
+skip_empty = true
+exclude_also = ["if __name__ == .__main__.:", "if TYPE_CHECKING:"]
+
+[tool.vulture]
+min_confidence = 80
+paths = ["scripts", "tests"]
+exclude = [".venv/"]
+
+[tool.deptry]
+extend_exclude = ["scripts/prek_hooks"]
+known_first_party = ["detect_slop", "slop_patterns", "slop_scanner", "slop_reports"]
+
+[tool.uv]
+exclude-newer = "3 days"
+
+[tool.new-feature]
+target_branch = "main"
+setup = ["uv sync --locked", "uv run prek install"]
+pre_merge = ["uv run prek run --all-files"]
+post_merge = ["uv run pytest"]

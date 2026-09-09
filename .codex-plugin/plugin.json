@@ -1,6 +1,6 @@
 {
   "name": "unslop",
-  "version": "1.5.0",
+  "version": "1.5.1",
   "description": "Clean up AI-sounding writing to read like a human wrote it.",
   "skills": "./skills/",
   "interface": {
