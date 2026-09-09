@@ -1,12 +1,12 @@
 # unslop
 
-A [Claude Code plugin](https://docs.claude.com/en/docs/claude-code-plugins) that detects and rewrites AI-sounding text. It catches the constellation of habits that make AI writing recognizable — inflated significance, empty hedging, compulsive structure, synonym cycling — and rewrites them into plain, direct prose.
+A [Claude Code plugin](https://docs.claude.com/en/docs/claude-code-plugins) for editing AI-sounding text. It helps remove filler, exaggerated claims, and repetitive phrasing while preserving the author's meaning and voice.
 
 ## What it does
 
-**As a skill:** Say "unslop this" (or "de-slop", "make this sound human", "sounds too AI", etc.) and it will rewrite your text as a human copyeditor would — cutting filler, deflating importance, and saying things straight. It preserves your ideas and register; it just removes the AI voice.
+**As a skill:** Say "unslop this" or "make this sound human" to have the agent edit your text in context. It checks for problems such as stacked hedges, unnecessary structure, and forced synonym changes.
 
-**As a script:** `detect_slop.py` is a regex-based scanner that triages files by slop density. It catches surface-level patterns (vocabulary clusters, formulaic phrases, dangling participles) and produces a per-file score. Useful for batch scanning and CI.
+**As a script:** `detect_slop.py` uses regular expressions to score files for review. It detects patterns such as vocabulary clusters, formulaic phrases, and dangling participles. Use it to scan a directory or check files in CI.
 
 ## Install
 
@@ -67,7 +67,7 @@ The detection script and skill reference a taxonomy of AI writing patterns organ
 - **Tier 2 (strong signals):** promotional tone, dangling participle filler clauses, rule-of-three abuse, synonym cycling, vague attribution ("experts argue"), formulaic conclusions, and false ranges
 - **Tier 3 (contextual tells):** decorative punctuation and compression, manufactured sentence rhythm, pseudo-agency, unexplained jargon, decorative analogies, ambiguous references, stacked rhetorical questions, transition spam, and templated structure
 
-The script catches what regex can. The skill catches what requires judgment — superficial analysis masquerading as depth, significance inflation with novel phrasing, and the general flatness of AI prose.
+The script's scores help you choose which files to review. The skill also looks for problems that regular expressions cannot judge, such as unsupported claims of importance and explanations that add no information. Findings are editing cues, not proof that AI wrote the text.
 
 ## Development
 

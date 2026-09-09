@@ -40,7 +40,7 @@ Connecting mundane things to grand narratives:
 
 ### The "Not Just X, But Y" Construction
 
-Almost pathognomonic of AI writing:
+A repeated contrast can inflate a simple point:
 - "It's not just about X; it's about Y"
 - "This isn't merely X — it's Y"
 - "More than just X, it represents Y"
