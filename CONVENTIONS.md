@@ -1,5 +1,9 @@
 # Design conventions
 
+For advisory design reviews and durable coding preferences, use the
+`coding-conventions` skill shipped with Strictify. Read only its relevant
+references; the project-specific decisions below remain canonical.
+
 The scanner is a small, offline heuristic tool. Keep its runtime dependencies in
 the Python standard library and preserve `python scripts/detect_slop.py` usage.
 Development dependencies belong in the uv development group, with `uv.lock` tracked.
