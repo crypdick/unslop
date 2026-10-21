@@ -68,6 +68,24 @@ Even when asked to be neutral, AI defaults to press-release voice:
 - "natural beauty"
 - "renowned for its..."
 
+### Defensive caveats and invented objections
+
+AI often qualifies a concrete finding by denying claims nobody made:
+
+- "This does not establish that..."
+- "This was X, not a Y."
+- "We did not..."
+
+Ask what misunderstanding the caveat prevents and whether it matters here. Cut denials of irrelevant alternatives, especially when the preceding explanation already makes the cause or scope clear. State the supported finding directly.
+
+Bad: "The grader parsed zero of 45 passing tests. This was a parser incompatibility, not a model failure."
+Better: "The grader's parser misread the output and extracted zero of 45 passing tests."
+
+Bad: "Access was restored. This does not establish that every pending artifact was published."
+Better, when publication is outside the topic: "Access was restored."
+
+Keep qualifications that change attribution, bound the evidence, affect a decision or next step, or correct a plausible misunderstanding raised by the context. Prefer a concrete bound such as "CPU tests verify dispatch; GPU capture validation is next." Removing an empty caveat must not turn a limited result into a broader claim. Negation itself is not the problem.
+
 ### Dangling present participle phrases
 
 AI often appends "-ing" clauses to the end of sentences for superficial depth:
