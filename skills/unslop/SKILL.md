@@ -21,6 +21,7 @@ For an invocation without arguments or pasted text, scan the current working dir
 ## Preserve meaning and rhythm
 
 - Prefer direct verbs and concrete relationships. Remove redundant transitions, significance claims, and dangling commentary; keep explanations that add information.
+- Cut defensive caveats that answer invented objections. Keep limits that affect attribution, evidence, or decisions; see [the taxonomy](references/ai-writing-patterns.md#defensive-caveats-and-invented-objections).
 - Keep technical terms, appropriate complexity, useful analogies, and the author's register. A watched word, em dash, or three-item list alone is not a reason to edit.
 - Do not add opinions, humor, personal experience, or personality absent from the source. Do not invent facts to replace uncertainty.
 - Keep headings and lists when they help the reader. Cut compulsory scaffolding and decorative formatting, not useful structure.
