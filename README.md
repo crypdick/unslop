@@ -100,3 +100,21 @@ work there. Each worktree has its own environment and test caches. No services
 or credentials need setup.
 
 `evals/rewrite_cases.json` contains manual rewrite cases with facts that must survive and phrases the final edit should remove. Use it when changing the skill prompt or comparing model behavior.
+
+### Plugin releases
+
+After quality checks pass for a push to `main`, CI increments the patch version
+and pushes a `Release X.Y.Z` commit. `pyproject.toml` is the version source of truth;
+CI synchronizes `plugin.json`, `.claude-plugin/marketplace.json`, and
+`.codex-plugin/plugin.json`, then refreshes `uv.lock` and checks the release before
+pushing it. All manifests receive the same plain `major.minor.patch` version.
+
+For a manual release, run `uv version --bump minor` (or `major` or `patch`) and
+commit the result. CI preserves a version higher than the version before the push,
+including a bump in an earlier commit of a multi-commit push. Decreased versions
+fail release preparation. Feature branches and pull requests only run checks.
+Retries reuse the release commit, and runs overtaken by another push skip release.
+
+The release job uses the repository's `GITHUB_TOKEN` with `contents: write`.
+Branch rules must allow that bot to push release commits. Bot pushes do not
+trigger another workflow run; see [GitHub's token documentation](https://docs.github.com/en/actions/concepts/security/github_token).

@@ -10,10 +10,13 @@ areas. Grades reflect measured checks, not detector accuracy.
 | Pattern tables | 100% line/branch | strict mypy | no functions | category and representative phrase checks | A |
 | Rewrite skill and taxonomy | not executable Python | not applicable | not applicable | manual corpus; constraints checked automatically | B |
 | Development hooks | outside runtime coverage | strict mypy | Ruff limit 15 | linting and hook smoke checks | B |
+| Release preparation | 100% line/branch | strict mypy | Ruff limit 15 | CLI tests in real Git repositories | A |
 
-The suite has 137 tests. Pytest uses at most four workers and a 20-second per-test
+Pytest uses at most four workers and a 20-second per-test
 timeout. Coverage includes CLI subprocesses and every runtime module under
 `scripts/`; development hooks and the trivial `__main__` dispatch are excluded.
+Release CLI tests cover version selection, manifest
+synchronization, retries, superseded runs, and invalid input.
 No network recordings are needed because the tests make no external service calls.
 Mypy checks tests but allows unannotated test definitions. Production and hook
 functions must satisfy the full strict configuration.
