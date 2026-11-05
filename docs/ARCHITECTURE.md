@@ -26,6 +26,9 @@ The repository separates editing guidance, scanning, and development checks:
   manual rewrite constraints and expected detector categories.
 - `scripts/prek_hooks/` contains development checks invoked by `prek.toml`.
   Plugin manifests live in `plugin.json`, `.claude-plugin/`, and `.codex-plugin/`.
+- `scripts/prepare_release.py` synchronizes plugin versions for the release job in
+  `.github/workflows/quality.yml`. See [plugin releases](../README.md#plugin-releases)
+  for version selection and CI behavior.
 
 ## Invariants
 
