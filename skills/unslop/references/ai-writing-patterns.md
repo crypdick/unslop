@@ -151,6 +151,14 @@ LLMs use "from X to Y" as a dramatic container even when X and Y are not endpoin
 
 List the actual topics or state the relationship between them. Keep a range when the endpoints really do define an interval, progression, or scope.
 
+### Excessive detail and over-explaining
+
+AI tends to over explain simple concepts. For example:
+
+"- **Define every variable in an equation.** Each symbol, subscript, and superscript index must be defined in the same sentence or just before the equation, or point to the place it was defined earlier. Example: "fragment $p$ of replica $m$, where $H$ is the number of inner steps between syncs and $t_p$ is fragment $p$'s sync offset." Don't assume readers know a paper's notation. The same rule applies to pseudocode (see "Define every variable in-block" below)."
+
+...when 'Define every variable in an equation.' suffices.
+
 ---
 
 ## Tier 3: stylistic tells (subtler, but accumulate)
