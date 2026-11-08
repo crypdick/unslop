@@ -796,7 +796,7 @@ wheels = [
 
 [[package]]
 name = "unslop"
-version = "1.5.6"
+version = "1.5.7"
 source = { virtual = "." }
 
 [package.dev-dependencies]
