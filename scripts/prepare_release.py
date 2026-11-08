@@ -77,12 +77,15 @@ def _prepare_version(previous: str) -> str:
 
     paths = [Path("plugin.json"), Path(".codex-plugin/plugin.json"), Path(".claude-plugin/marketplace.json")]
     manifests = [_read_json(path) for path in paths]
+    if any(manifest.get("name") != "unslop" for manifest in manifests[:2]):
+        raise ValueError("plugin manifests must be named unslop")
     plugins = manifests[2].get("plugins")
     if not isinstance(plugins, list):
         raise TypeError("marketplace must contain a plugins array")
-    plugin = next((item for item in plugins if isinstance(item, dict) and item.get("name") == "unslop"), None)
-    if plugin is None:
-        raise ValueError("marketplace must register unslop")
+    registrations = [item for item in plugins if isinstance(item, dict) and item.get("name") == "unslop"]
+    if len(registrations) != 1:
+        raise ValueError("marketplace must register unslop exactly once")
+    plugin = registrations[0]
     plugin["version"] = version
     for manifest in manifests[:2]:
         manifest["version"] = version
