@@ -1,47 +1,38 @@
 # Design conventions
 
-For advisory design reviews and durable coding preferences, use the
-`coding-conventions` skill shipped with Strictify. Read only its relevant
-references; the project-specific decisions below remain canonical.
+Keep the scanner small and offline. Preserve `python scripts/detect_slop.py`
+usage. Development dependencies belong in uv's locked development group.
 
-The scanner is a small, offline heuristic tool. Keep its runtime dependencies in
-the Python standard library and preserve `python scripts/detect_slop.py` usage.
-Development dependencies belong in the uv development group, with `uv.lock` tracked.
+## Code and data
 
-## Small functions and explicit data
+Prefer composed functions to detector class hierarchies. Use `Finding` and
+`FileReport` for results, `Severity` for severity labels, and
+`scripts/slop_patterns.py` for pattern tables. Use distinct types when they prevent
+concrete caller mistakes, not for ordinary counts or indexes.
 
-Compose scanning functions instead of introducing detector class hierarchies.
-`Finding` and `FileReport` carry results. Pattern tables belong in
-`scripts/slop_patterns.py`. Name shared code after its purpose. The file-length
-hook limits Python files to 400 logical lines, including continuation lines.
+Keep file I/O, argument parsing, and JSON serialization in `detect_slop.py`;
+scanner and formatter code work on text and typed reports. Parse structured
+external data into typed records and validate value constraints at the boundary:
+type annotations do not validate values.
 
-Use `Severity` for the finite set of severity labels. Introduce `NewType` when two
-otherwise identical scalar types represent distinct concepts that callers might
-confuse. Do not wrap ordinary word counts or loop indexes without a concrete benefit.
+Send diagnostics to stderr and reports to stdout. Catch specific expected I/O
+errors and explain skipped files. If logging is needed, pass context through
+`extra`.
 
-## Parse at the boundary
+## Behavior and maintenance
 
-Read files, parse command-line arguments, and serialize JSON in `detect_slop.py`.
-Pass text and typed reports into the scanner and formatter. If a feature accepts
-structured external data, parse it into a typed record and enforce its value
-constraints there. Type annotations, `NewType`, and frozen dataclasses do not
-validate untrusted values by themselves.
+Test observable behavior through public entry points such as `scan_text`,
+`collect_files`, and the CLI; do not import private first-party symbols.
 
-Keep diagnostics on stderr and report output on stdout. Catch specific expected
-I/O errors and explain skipped files. Ruff checks print and logging calls and allows
-print in these CLI and hook scripts. If you introduce logging, pass contextual
-fields through `extra` instead of building messages with f-strings.
+Keep documentation, the skill taxonomy, detector patterns, and evaluation cases
+consistent with changed behavior. Regex findings are editing cues, not proof of
+AI authorship or rewrite quality.
 
-## Behavior and documentation
+Keep guidance focused on goals and essential constraints. Add procedural detail
+when it prevents a concrete mistake or clarifies a non-obvious distinction; leave
+routine choices to judgment. Preserve useful examples and rationale, not a target
+word count.
 
-Test `scan_text`, `collect_files`, and CLI output or exit status. Tests must not
-import private first-party symbols. Before changing behavior, add a failing test
-that demonstrates the intended result, then implement and rerun it.
-
-Keep `README.md`, the skill taxonomy, and detector patterns consistent. Add a
-`NOTE:` back-pointer at code sites whose behavior is also specified in prose.
-Regex signals are triage heuristics; passing tests does not prove a rewrite is
-accurate or that flagged text was written by AI.
-
-Maintain Ruff's curated rule set, strict mypy, and 100% production branch coverage.
-Use narrow, explained exceptions only where a check misrepresents the code.
+Maintain the configured Ruff checks, strict mypy, 400-logical-line Python file
+limit, and 100% production branch coverage. Keep check exceptions narrow and
+explain why they are needed.

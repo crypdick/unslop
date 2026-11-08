@@ -1,20 +1,26 @@
 # AI writing patterns reference
 
-Use these patterns to find passages worth editing, not to establish AI authorship. Judge repetition, information value, and fit with the author's voice. Tiers indicate review priority, not certainty.
+Use these patterns to find passages worth editing, not to establish AI authorship.
+Tiers indicate review priority. Judge information value and fit with the author's
+voice; preserve useful detail, accurate uncertainty, and supported claims.
+Isolated words or stylistic choices are not grounds for edits.
 
 ## Tier 1: high-priority patterns
 
 ### AI vocabulary clusters
 
-Clusters of stock language can replace precise description: "delve," "tapestry," "pivotal," "robust," "leverage," "paradigm," or "holistic." Inflation words such as "groundbreaking," "transformative," and "unprecedented" need factual support. Individual words are not grounds for an edit.
+Clusters such as "delve," "tapestry," "pivotal," "robust," "leverage," "paradigm,"
+and "holistic" can replace precise description. Claims such as "groundbreaking"
+need factual support.
 
 ### Copulative avoidance
 
-Prefer "is" or "has" when phrases such as "serves as," "stands as," or "boasts" add no meaning. Keep alternatives that express a real distinction.
+Prefer "is" or "has" when "serves as," "stands as," or "boasts" adds no distinction.
 
 ### Formulaic significance framing
 
-Phrases such as "is a testament to," "plays a pivotal role," and "underscores the importance of" can assert significance without explaining it. Keep the supported relationship; cut empty promotion.
+"Is a testament to" and "underscores the importance of" often assert significance
+without explaining it. State the supported relationship.
 
 ### The "not just X, but Y" construction
 
@@ -24,7 +30,8 @@ Repeated "not just X, but Y" contrasts can inflate a simple point. State the poi
 
 ### Promotional/breathless tone
 
-Replace press-release language such as "boasts a vibrant," "rich tapestry," or "commitment to excellence" with supported facts. Preserve enthusiasm that belongs to the author.
+Replace empty promotion such as "commitment to excellence" with supported facts,
+without removing the author's enthusiasm.
 
 ### Defensive caveats and invented objections
 
@@ -36,39 +43,48 @@ Removing a caveat must not broaden the claim beyond its evidence.
 
 ### Dangling present participle phrases
 
-Trailing clauses such as "highlighting the need for further research" or "fostering a sense of community" may add only commentary. Cut them when empty; retain concrete consequences.
+Trailing commentary such as "highlighting the need for further research" may add
+nothing. Distinguish filler from concrete consequences.
 
 ### Rule of three abuse
 
-Repeated triplets such as "innovative, dynamic, and forward-thinking" can impose a template instead of adding information. Keep meaningful groups of three.
+Triplets such as "innovative, dynamic, and forward-thinking" can impose a template
+without adding information. Meaningful groups of three are fine.
 
 ### Elegant variation (synonym cycling)
 
-Cycling through "the researcher," "the scholar," and "the protagonist" can obscure a single referent. Repeat the precise name or term when clearer.
+Cycling through "the researcher," "the scholar," and "the protagonist" can obscure
+a single referent. Repeat the precise name or term when clearer.
 
 ### Vague attribution
 
-"Experts argue" and "studies have shown" suggest authority without identifying it. Use attribution supported by the source; do not invent a citation or turn an attributed claim into an established fact.
+"Experts argue" and "studies have shown" imply unidentified authority. Use only
+supported attribution; do not invent citations or turn attributed claims into facts.
 
 ### Formulaic challenges/outlook conclusions
 
-Cut generic endings such as "While challenges remain, the future looks promising" when they add no conclusion. Keep concrete unresolved problems and next steps.
+Replace generic optimism such as "While challenges remain, the future looks
+promising" with concrete conclusions, unresolved problems, or next steps.
 
 ### False ranges
 
-"From the Big Bang to dark matter" presents topics as endpoints without a meaningful scale. List the topics or explain their relationship. Keep genuine intervals, progressions, and scope boundaries.
+"From the Big Bang to dark matter" lacks a meaningful scale. List the topics or
+explain their relationship; keep genuine intervals and scope boundaries.
 
 ### Excessive detail and over-explaining
 
-Cut repeated instructions, obvious explanations, and examples that add no useful distinction. "Define every variable in an equation" may suffice without enumerating symbols, subscripts, and superscripts. Keep detail needed by the audience or for correctness.
+Cut repetition, obvious explanations, and examples that add no useful distinction.
+Keep detail needed by the audience or for correctness.
 
 ## Tier 3: contextual style cues
 
-Edit these when repetition, ambiguity, or mismatch with the voice creates a problem. They are not prohibited constructions.
+These warrant edits when they create repetition, ambiguity, or a mismatch with
+voice—not merely because they occur.
 
 ### Decorative punctuation
 
-Repeated dashes, dramatic colons, and fragments can force emphasis: "Clear. Direct. Transformative." Keep punctuation that clarifies meaning or fits the author's rhythm.
+Dashes, dramatic colons, and fragments can force emphasis: "Clear. Direct.
+Transformative." Keep punctuation that clarifies meaning or fits the rhythm.
 
 ### Decorative compression
 
@@ -80,39 +96,46 @@ Runs of clipped fragments or over-packed clauses can sound mechanical. Split or 
 
 ### Pseudo-agency
 
-"The framework drives alignment" can hide who does what. Name supported actors or mechanisms. Conventional subjects such as "the server returns an error" and "the paper argues" are fine.
+"The framework drives alignment" can hide who does what. Name supported actors
+or mechanisms; conventional subjects such as "the server returns an error" are fine.
 
 ### Unexplained or invented jargon
 
-Replace jargon that is less precise than plain language or unexplained for the intended audience. Keep established technical terms and appropriate complexity.
+Prefer plain language when more precise or accessible to the audience. Keep
+established technical terms and appropriate complexity.
 
 ### Decorative analogies
 
-Cut imagery that merely repeats a clear explanation. Keep analogies that explain a difficult relationship or carry the author's voice.
+Cut imagery that repeats an explanation; keep analogies that clarify a difficult
+relationship or carry the author's voice.
 
 ### Ambiguous references
 
-Clarify "this," "the result," or "the outcome" when several antecedents are plausible. Leave clear references alone.
+Clarify "this" or "the outcome" when several antecedents are plausible.
 
 ### Stacked rhetorical questions
 
-Repeated questions can manufacture drama. State the issue directly when no answer is invited; keep genuine questions and useful interview or FAQ structure.
+Repeated questions can manufacture drama. State the issue directly unless an
+answer is invited or the question structure helps the reader.
 
 ### Collaborative/direct address
 
-"Let's explore," "As we'll see," and "Here's why that matters" can delay the point. Keep direct address when it serves the relationship with the reader.
+"Let's explore" and "Here's why that matters" can delay the point. Keep direct
+address that serves the relationship with the reader.
 
 ### Hedge stacking
 
-Reduce redundant uncertainty such as "It could potentially be argued that perhaps." Preserve the actual degree of confidence.
+Reduce redundant uncertainty such as "It could potentially be argued that
+perhaps" without changing confidence.
 
 ### Transition word overuse
 
-Repeated "Additionally," "Moreover," and "Notably" can become verbal scaffolding. Keep transitions that express a useful relationship.
+Keep transitions that express relationships, not repeated "Additionally" or
+"Moreover" scaffolding.
 
 ### Filler phrases that add nothing
 
-Cut empty prefaces such as "It's worth noting that," "At the end of the day," and "When it comes to."
+Cut empty prefaces such as "It's worth noting that" and "When it comes to."
 
 ### Formulaic scaffolding and paragraph structure
 
@@ -120,7 +143,8 @@ Announcements such as "There are three key aspects" and repeated announcement-su
 
 ### Inline-header vertical lists
 
-Repeated labels such as "**Performance:** Performance improved..." can make prose harder to scan. Remove redundant labels or combine points; retain useful parallel lists.
+Remove redundant labels such as "**Performance:** Performance improved...";
+keep useful parallel lists.
 
 ### Decorative emoji
 
@@ -128,15 +152,16 @@ Remove mechanical decoration such as "🚀 Launch" when it carries no meaning. P
 
 ### Title case overuse in headings
 
-Match the document's heading style rather than imposing Title Case For Every Heading.
+Match the document's heading style.
 
 ### Sycophantic/validating opener
 
-Cut reflexive praise such as "Great question!" or "That's an excellent point!" when it delays the content.
+Cut reflexive praise such as "Great question!" when it delays content.
 
 ### Pasted chatbot artifacts
 
-Remove wrappers such as "I hope this helps" or "Let me know if you'd like more detail" from standalone prose. Keep genuine correspondence addressed to another person.
+Remove wrappers such as "I hope this helps" from standalone prose, not genuine
+correspondence.
 
 ### Knowledge-cutoff disclaimers
 
@@ -144,11 +169,11 @@ Replace model-specific framing such as "Up to my last training update" with sour
 
 ### Curly/smart quotes
 
-Match the target's typography. Curly quotes alone do not justify rewriting prose.
+Match the target's typography; curly quotes alone need no rewrite.
 
 ### Excessive boldface
 
-Remove repetitive emphasis that the prose can carry. Keep boldface that helps readers scan or follows an established convention.
+Remove redundant emphasis; keep boldface that helps scanning or follows convention.
 
 ### Notability/media coverage emphasis
 
@@ -156,8 +181,11 @@ Remove repetitive emphasis that the prose can carry. Keep boldface that helps re
 
 ### Sudden shifts in writing style
 
-Check abrupt changes in tone or complexity against the surrounding voice. Preserve justified shifts, such as quotations or changes of audience.
+Check abrupt tone or complexity changes against context; quotations or audience
+changes may justify them.
 
 ## Detection guardrails
 
-Do not rewrite watched phrases inside quotations, titles, code, or examples where the wording is being discussed rather than used. Keep judgments about clarity, usefulness, and voice out of automated detection; regex findings are triage cues, and clean scans do not establish good prose.
+Preserve wording in quotations, titles, code, and examples when it is being
+discussed rather than used. Automated detection supplies triage cues, not judgments
+about clarity, usefulness, or voice. A clean scan does not establish good prose.
