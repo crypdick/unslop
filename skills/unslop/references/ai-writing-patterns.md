@@ -1,368 +1,163 @@
 # AI writing patterns reference
 
-This taxonomy describes AI writing patterns, organized by severity and detectability. It draws on Wikipedia's "Signs of AI writing" and firsthand observation.
+Use these patterns to find passages worth editing, not to establish AI authorship. Judge repetition, information value, and fit with the author's voice. Tiers indicate review priority, not certainty.
 
-## Tier 1: dead giveaways (almost never appear in natural human writing)
+## Tier 1: high-priority patterns
 
 ### AI vocabulary clusters
 
-When multiple words from this list appear in close proximity, it's a strong signal. One or two in isolation can be human; three or more clustered together almost never is.
-
-**The classic large language model (LLM) lexicon:**
-
-delve, tapestry, landscape (metaphorical), pivotal, crucial, underscore, vibrant, meticulous, intricate, testament, garner, bolstered, fostering, showcasing, highlighting, emphasizing, enhance, enduring, nuanced, multifaceted, comprehensive, robust, leverage, realm, paradigm, cornerstone, beacon, spearhead, demystify, unpack, navigate (metaphorical), harness, catalyze, synergy, holistic, granular, deep dive, unravel
-
-**Inflation words (make everything sound world-historically important):**
-
-groundbreaking, revolutionary, transformative, game-changing, unprecedented, remarkable, extraordinary, invaluable, indispensable, indelible
+Clusters of stock language can replace precise description: "delve," "tapestry," "pivotal," "robust," "leverage," "paradigm," or "holistic." Inflation words such as "groundbreaking," "transformative," and "unprecedented" need factual support. Individual words are not grounds for an edit.
 
 ### Copulative avoidance
 
-AI models systematically replace "is" and "are" with fancier alternatives, even when the simple form is clearly better:
-
-- "serves as" instead of "is"
-- "stands as" instead of "is"
-- "represents" instead of "is"
-- "marks" instead of "is"
-- "boasts" instead of "has"
-- "features" instead of "has"
-- "offers" instead of "has"
+Prefer "is" or "has" when phrases such as "serves as," "stands as," or "boasts" add no meaning. Keep alternatives that express a real distinction.
 
 ### Formulaic significance framing
 
-These phrases connect mundane things to grand narratives:
-
-- "is a testament to..."
-- "plays a vital/crucial/pivotal role in..."
-- "underscores the importance of..."
-- "reflects broader trends in..."
-- "setting the stage for..."
-- "marks a key turning point"
-- "left an indelible mark on..."
-- "in the evolving landscape of..."
-- "at the intersection of X and Y"
+Phrases such as "is a testament to," "plays a pivotal role," and "underscores the importance of" can assert significance without explaining it. Keep the supported relationship; cut empty promotion.
 
 ### The "not just X, but Y" construction
 
-A repeated contrast can inflate a simple point:
+Repeated "not just X, but Y" contrasts can inflate a simple point. State the point directly unless the contrast matters.
 
-- "It's not just about X; it's about Y"
-- "This isn't merely X — it's Y"
-- "More than just X, it represents Y"
-
----
-
-## Tier 2: strong signals (humans do these sometimes, AI does them constantly)
+## Tier 2: recurring content problems
 
 ### Promotional/breathless tone
 
-Even when asked to be neutral, AI defaults to press-release voice:
-
-- "boasts a vibrant..."
-- "rich tapestry of..."
-- "nestled in the heart of..."
-- "a diverse array of..."
-- "showcasing the best of..."
-- "a testament to the power of..."
-- "commitment to excellence/innovation/quality"
-- "natural beauty"
-- "renowned for its..."
+Replace press-release language such as "boasts a vibrant," "rich tapestry," or "commitment to excellence" with supported facts. Preserve enthusiasm that belongs to the author.
 
 ### Defensive caveats and invented objections
 
-AI often qualifies a concrete finding by denying claims nobody made:
+Cut denials of irrelevant alternatives. Keep qualifications that bound evidence, change attribution or decisions, or correct a plausible misunderstanding.
 
-- "This does not establish that..."
-- "This was X, not a Y."
-- "We did not..."
+"The grader parsed zero of 45 passing tests. This was a parser incompatibility, not a model failure." can become "The grader's parser misread the output and extracted zero of 45 passing tests."
 
-Ask what misunderstanding the caveat prevents and whether it matters here. Cut denials of irrelevant alternatives, especially when the preceding explanation already makes the cause or scope clear. State the supported finding directly.
-
-Bad: "The grader parsed zero of 45 passing tests. This was a parser incompatibility, not a model failure."
-Better: "The grader's parser misread the output and extracted zero of 45 passing tests."
-
-Bad: "Access was restored. This does not establish that every pending artifact was published."
-Better, when publication is outside the topic: "Access was restored."
-
-Keep qualifications that change attribution, bound the evidence, affect a decision or next step, or correct a plausible misunderstanding raised by the context. Prefer a concrete bound such as "CPU tests verify dispatch; GPU capture validation is next." Removing an empty caveat must not turn a limited result into a broader claim. Negation itself is not the problem.
+Removing a caveat must not broaden the claim beyond its evidence.
 
 ### Dangling present participle phrases
 
-AI often appends "-ing" clauses to the end of sentences for superficial depth:
-
-- "...highlighting the need for further research"
-- "...underscoring the importance of X"
-- "...emphasizing the role of Y"
-- "...reflecting broader societal trends"
-- "...contributing to a more inclusive environment"
-- "...fostering a sense of community"
-- "...ensuring that all stakeholders are aligned"
-
-These almost always add zero information. They're filler that gestures at significance without earning it.
+Trailing clauses such as "highlighting the need for further research" or "fostering a sense of community" may add only commentary. Cut them when empty; retain concrete consequences.
 
 ### Rule of three abuse
 
-These phrases illustrate compulsive triplet structures:
-
-- "innovative, dynamic, and forward-thinking"
-- "clarity, precision, and depth"
-- "research, analysis, and implementation"
-
-Humans use the rule of three occasionally for rhetorical effect. AI uses it as a default structure for everything.
+Repeated triplets such as "innovative, dynamic, and forward-thinking" can impose a template instead of adding information. Keep meaningful groups of three.
 
 ### Elegant variation (synonym cycling)
 
-Repetition penalties cause AI to cycle through synonyms instead of repeating a word:
-
-- A person becomes "the researcher," "the scholar," "the key figure," "the protagonist"
-- A company becomes "the firm," "the organization," "the entity," "the tech giant"
-
-Humans repeat words. It's fine. Forced variation reads as evasive.
+Cycling through "the researcher," "the scholar," and "the protagonist" can obscure a single referent. Repeat the precise name or term when clearer.
 
 ### Vague attribution
 
-These phrases claim consensus or authority without specifics:
-
-- "Experts argue that..."
-- "Industry reports suggest..."
-- "Observers have noted..."
-- "Many researchers believe..."
-- "Studies have shown..."
-- "It is widely recognized that..."
-- "According to several sources..."
+"Experts argue" and "studies have shown" suggest authority without identifying it. Use attribution supported by the source; do not invent a citation or turn an attributed claim into an established fact.
 
 ### Formulaic challenges/outlook conclusions
 
-AI essays often end with these formulas:
-
-- "Despite its [positive words], [subject] faces several challenges..."
-- "While challenges remain, the future looks promising..."
-- "As [subject] continues to evolve..."
-- "Moving forward, it will be important to..."
-- "Only time will tell whether..."
+Cut generic endings such as "While challenges remain, the future looks promising" when they add no conclusion. Keep concrete unresolved problems and next steps.
 
 ### False ranges
 
-LLMs use "from X to Y" as a dramatic container even when X and Y are not endpoints on a meaningful scale:
-
-- "from the Big Bang to dark matter"
-- "from strategy to empathy"
-- "from individual choices to global transformation"
-
-List the actual topics or state the relationship between them. Keep a range when the endpoints really do define an interval, progression, or scope.
+"From the Big Bang to dark matter" presents topics as endpoints without a meaningful scale. List the topics or explain their relationship. Keep genuine intervals, progressions, and scope boundaries.
 
 ### Excessive detail and over-explaining
 
-AI tends to over explain simple concepts. For example:
+Cut repeated instructions, obvious explanations, and examples that add no useful distinction. "Define every variable in an equation" may suffice without enumerating symbols, subscripts, and superscripts. Keep detail needed by the audience or for correctness.
 
-"- **Define every variable in an equation.** Each symbol, subscript, and superscript index must be defined in the same sentence or just before the equation, or point to the place it was defined earlier. Example: "fragment $p$ of replica $m$, where $H$ is the number of inner steps between syncs and $t_p$ is fragment $p$'s sync offset." Don't assume readers know a paper's notation. The same rule applies to pseudocode (see "Define every variable in-block" below)."
+## Tier 3: contextual style cues
 
-...when 'Define every variable in an equation.' suffices.
-
----
-
-## Tier 3: stylistic tells (subtler, but accumulate)
-
-Tier 3 patterns are prompts to inspect the prose, not prohibited constructions. Rewrite them when they cluster, repeat, obscure the meaning, manufacture importance, or conflict with the surrounding voice. Preserve isolated uses that are clear, conventional, or characteristic of the author.
+Edit these when repetition, ambiguity, or mismatch with the voice creates a problem. They are not prohibited constructions.
 
 ### Decorative punctuation
 
-AI often uses repeated em dashes, dramatic colons, and fragments to manufacture a reveal-and-punchline cadence:
-
-- "The conclusion was clear: the framework had changed everything."
-- "The next step — the one that really matters — is alignment."
-- "Clear. Direct. Transformative."
-
-Rewrite punctuation when it is doing rhetorical work that the content has not earned. Keep a dash, colon, or fragment when it is well placed and fits the author's voice. Density and repetition are the signal, not the mark itself.
+Repeated dashes, dramatic colons, and fragments can force emphasis: "Clear. Direct. Transformative." Keep punctuation that clarifies meaning or fits the author's rhythm.
 
 ### Decorative compression
 
-AI coins hyphenated labels, slogans, and metaphorical summaries to make ordinary ideas sound compact or memorable:
-
-- "an insight-first workflow"
-- "the alignment loop"
-- "a reveal-style explanation"
-
-Restate the literal action or relationship when the label substitutes for an explanation. Keep established terms and wording that the author already uses.
+Labels such as "an insight-first workflow" or "the alignment loop" may substitute for explanation. State the literal action when clearer; keep established terms and authorial wording that carries meaning.
 
 ### Manufactured sentence rhythm
 
-AI can produce runs of clipped fragments for emphasis or pack loosely related clauses into an over-controlled sentence. Both create prose that sounds assembled:
-
-- "The edit is clear. Direct. Human. It lands."
-- "The parser reads the file, the validator checks the fields, the writer saves the record, and the dashboard updates."
-
-Split or join sentences when the rhythm obscures the reasoning or differs sharply from the surrounding prose. Do not enforce a sentence-length or clause-count limit.
+Runs of clipped fragments or over-packed clauses can sound mechanical. Split or join sentences to restore reasoning and rhythm, without imposing length or clause-count limits.
 
 ### Pseudo-agency
 
-AI often makes abstractions sound like actors:
-
-- "The strategy unlocks growth."
-- "The framework drives alignment."
-- "The result speaks to a broader shift."
-
-Name the actor or mechanism when the construction hides it. Keep conventional technical or academic usage such as "the server returns an error" or "the paper argues."
+"The framework drives alignment" can hide who does what. Name supported actors or mechanisms. Conventional subjects such as "the server returns an error" and "the paper argues" are fine.
 
 ### Unexplained or invented jargon
 
-AI might invent compact terminology or use technical language to make a simple claim sound authoritative. Replace jargon when it is unnecessary, undefined for the intended audience, or less precise than ordinary language.
-
-Keep established technical terms. A general dictionary is not the test; audience, precision, and context are.
+Replace jargon that is less precise than plain language or unexplained for the intended audience. Keep established technical terms and appropriate complexity.
 
 ### Decorative analogies
 
-AI analogies sometimes restate a simple idea with extra imagery instead of explaining it. Cut an analogy when the literal explanation already does the work.
-
-Keep an analogy when it makes a difficult relationship easier to understand or clearly belongs to the author's voice.
+Cut imagery that merely repeats a clear explanation. Keep analogies that explain a difficult relationship or carry the author's voice.
 
 ### Ambiguous references
 
-Words such as "this," "that," "the result," and "the outcome" become a problem when they might refer to several earlier ideas. Name the specific action or claim when the reference is unclear.
-
-Do not mechanically replace every demonstrative pronoun or summary noun. Clear references are ordinary prose.
+Clarify "this," "the result," or "the outcome" when several antecedents are plausible. Leave clear references alone.
 
 ### Stacked rhetorical questions
 
-Several rhetorical questions in a row can manufacture uncertainty or drama:
-
-- "Does the rewrite preserve the voice? Does it keep the facts? Does it avoid over-correcting?"
-
-State the issue directly when the questions do not invite answers. Keep real questions in interviews, FAQs, correspondence, or passages where the author is genuinely asking the reader to consider them.
+Repeated questions can manufacture drama. State the issue directly when no answer is invited; keep genuine questions and useful interview or FAQ structure.
 
 ### Collaborative/direct address
 
-- "Let's explore..."
-- "As we'll see..."
-- "In this article, we'll examine..."
-- "Let's dive in" / "Let's unpack this"
-- "Here's the thing:"
-- "Here's why that matters:"
+"Let's explore," "As we'll see," and "Here's why that matters" can delay the point. Keep direct address when it serves the relationship with the reader.
 
 ### Hedge stacking
 
-These phrases combine multiple hedges in one sentence:
-
-- "It could potentially be argued that perhaps..."
-- "While it may seem somewhat counterintuitive..."
+Reduce redundant uncertainty such as "It could potentially be argued that perhaps." Preserve the actual degree of confidence.
 
 ### Transition word overuse
 
-AI often starts every paragraph or sentence with one of these transitions:
-
-- "Additionally," "Furthermore," "Moreover,"
-- "Importantly," "Notably," "Interestingly,"
-- "That said," "However," "Nevertheless,"
+Repeated "Additionally," "Moreover," and "Notably" can become verbal scaffolding. Keep transitions that express a useful relationship.
 
 ### Filler phrases that add nothing
 
-- "It's worth noting that..."
-- "It's important to remember that..."
-- "It goes without saying that..." (then says it)
-- "At the end of the day..."
-- "When it comes to..."
-- "In terms of..."
-- "The reality is that..."
+Cut empty prefaces such as "It's worth noting that," "At the end of the day," and "When it comes to."
 
 ### Formulaic scaffolding and paragraph structure
 
-These phrases announce the structure instead of introducing the content:
-
-- "First, ... Second, ... Third, ... Finally, ..."
-- "There are three key aspects to consider:"
-- "Two cautions."
-- "Let's break this down into components:"
-
-Repeated announcement-support-summary paragraphs can also make a document feel templated. Remove scaffolding or vary the structure when several paragraphs use the same mold. Keep topic sentences, explicit counts, and lists when they help readers navigate the material.
+Announcements such as "There are three key aspects" and repeated announcement-support-summary paragraphs can delay content. Keep topic sentences, counts, and structure that help navigation.
 
 ### Inline-header vertical lists
 
-Repeated bullets with bold labels often turn ordinary prose into a template:
-
-- "**Performance:** Performance improved through optimization."
-- "**Security:** Security was strengthened with encryption."
-- "**Usability:** Usability was enhanced by the new interface."
-
-Remove the repeated labels or combine the points when the list is no easier to scan than prose. Keep a list when the items are genuinely parallel and readers need to scan them.
+Repeated labels such as "**Performance:** Performance improved..." can make prose harder to scan. Remove redundant labels or combine points; retain useful parallel lists.
 
 ### Decorative emoji
 
-Emoji attached mechanically to headings and bullets can make a document look like chatbot output:
-
-- "🚀 **Launch:** Ship in Q3"
-- "💡 **Insight:** Users prefer fewer steps"
-- "✅ **Next step:** Schedule the review"
-
-Remove decoration that carries no meaning. Keep emoji when it belongs to the author's established voice or communicates a real status convention.
+Remove mechanical decoration such as "🚀 Launch" when it carries no meaning. Preserve authorial style, brand conventions, and status indicators.
 
 ### Title case overuse in headings
 
-AI defaults to Title Case For Every Heading even when the surrounding document uses sentence case.
+Match the document's heading style rather than imposing Title Case For Every Heading.
 
 ### Sycophantic/validating opener
 
-AI often starts responses with these phrases:
-
-- "Great question!"
-- "That's an excellent point."
-- "Absolutely!"
-- "You raise a really important issue."
+Cut reflexive praise such as "Great question!" or "That's an excellent point!" when it delays the content.
 
 ### Pasted chatbot artifacts
 
-Chat correspondence sometimes leaks into the document itself:
-
-- "I hope this helps!"
-- "Let me know if you'd like more detail."
-- "Would you like me to continue?"
-- "As an AI language model..."
-
-Delete the conversational wrapper and begin with the content. Do not remove similar language from an actual email or message where the author is genuinely addressing another person.
+Remove wrappers such as "I hope this helps" or "Let me know if you'd like more detail" from standalone prose. Keep genuine correspondence addressed to another person.
 
 ### Knowledge-cutoff disclaimers
 
-Model-specific disclaimers do not belong in standalone prose:
-
-- "Up to my last training update..."
-- "My knowledge cutoff is..."
-- "I don't have access to real-time information..."
-
-Rewrite the limitation as ordinary, source-specific uncertainty when it matters. Never replace an honest gap with a fabricated fact; verify it, preserve the uncertainty, or flag it for the author.
+Replace model-specific framing such as "Up to my last training update" with source-specific uncertainty when relevant. Verify, preserve, or flag an honest gap; never fill it with a guess.
 
 ### Curly/smart quotes
 
-AI often outputs curly quotes (\u2018\u2019\u201C\u201D) instead of straight ASCII quotes. This is a minor tell but correlates with AI origin, especially in plain-text contexts where smart quotes look out of place.
+Match the target's typography. Curly quotes alone do not justify rewriting prose.
 
 ### Excessive boldface
 
-Mechanical, repetitive bolding includes bolding every instance of a key term, using "key takeaways" formatting, or bolding entire phrases for emphasis that the prose can carry on its own.
+Remove repetitive emphasis that the prose can carry. Keep boldface that helps readers scan or follows an established convention.
 
 ### Notability/media coverage emphasis
 
-AI inflates coverage significance:
-
-- "profiled in major publications"
-- "garnered widespread media attention"
-- "featured in leading industry outlets"
-- "maintains a strong digital presence"
-
-AI often lists media sources to prove importance when the coverage is routine or trivial.
+"Garnered widespread media attention" or lists of publications can imply importance without supporting it. Keep coverage facts relevant to the point; cut inflated conclusions.
 
 ### Sudden shifts in writing style
 
-An abrupt change in tone, vocabulary level, or complexity within a document can signal AI writing. Such changes often appear when AI-generated sections alternate with human writing, or when a prompt changed partway through generation.
-
----
+Check abrupt changes in tone or complexity against the surrounding voice. Preserve justified shifts, such as quotations or changes of audience.
 
 ## Detection guardrails
 
-These patterns are editing signals, not proof that AI wrote the text. Look for clusters, repetition, and mismatch with the surrounding voice.
-
-- Do not rewrite watched phrases inside quotations, titles, code, or examples where the phrase is being discussed rather than used.
-- Curly quotes, one em dash, one three-item list, or one emoji mean little on their own.
-- A "from X to Y" range is fine when X and Y are comparable endpoints.
-- Bold-label lists and emoji might be deliberate interface or brand conventions.
-- Preserve established jargon, useful analogies, clear pronoun references, and conventional inanimate subjects.
-- Prefer density or sequence checks over flagging one punctuation mark, question, modifier, or sentence shape.
-- Keep patterns that require judging clarity, usefulness, or authorial voice out of automated detection.
-- Preserve accurate uncertainty. Removing model-specific disclaimers does not authorize guessing.
+Do not rewrite watched phrases inside quotations, titles, code, or examples where the wording is being discussed rather than used. Keep judgments about clarity, usefulness, and voice out of automated detection; regex findings are triage cues, and clean scans do not establish good prose.
