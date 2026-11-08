@@ -169,7 +169,8 @@ timeout_method = "thread"
 [tool.coverage.run]
 branch = true
 source = ["scripts"]
-omit = ["scripts/prek_hooks/*"]
+# Keep the same dev-hook exclusion in subprocess fixtures with temporary working directories.
+omit = ["*/scripts/prek_hooks/*"]
 # CLI subprocess tests contribute to the same coverage report.
 patch = ["subprocess"]
 

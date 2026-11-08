@@ -1,12 +1,10 @@
 """Prek hook to enforce timeless comments.
 
-Philosophy: Comments should describe *what* code does and *why*, not narrate
-repository history. Temporal language that centers chronology instead of
-current behavior makes comments age poorly and obscures the code's present
-intent.
+Comments should explain current behavior and reasons, not narrate past changes.
+Only explicit historical phrases are checked; domain vocabulary is not history.
 
 Detects:
-- Temporal keywords in inline comments and docstrings (see ``TEMPORAL_KEYWORDS``)
+- Historical phrases in inline comments and docstrings (see ``TEMPORAL_KEYWORDS``)
 
 Allowed:
 - Lines annotated with ``# allow: timeless-comments``
@@ -26,40 +24,14 @@ import sys
 import tokenize
 from pathlib import Path
 
-# Keywords that indicate temporal language in comments
+# Keep semantic judgments about words such as "fallback" or "compatible" advisory.
 TEMPORAL_KEYWORDS = [
-    r"\blegacy\b",
-    r"\bfallback\b",
-    r"\bold\b",
-    r"\bobsolete\b",
-    r"\bhas been\b",
-    r"\bused to\b",
-    r"\bis being\b",
-    r"\bnew\b",
-    r"\bprevious\b",
-    r"\bprior\b",
-    r"\bdeprecate[ds]?\b",
-    r"\boriginal\b",
-    r"\brefactor\b",
-    r"\breplace[ds]?\b",
-    r"\bmigrate[ds]?\b",
-    r"\bupgrade[ds]?\b",
     r"\bno longer\b",
-    r"\bunused\b",
-    r"\bhistoric\b",
-    r"\bremoved\b",
-    r"\bswitch\b",
-    r"\bcompatibility\b",
-    r"\bcompatible\b",
-    r"\bformer\b",
+    r"\bpreviously\b",
+    r"\bformerly\b",
     r"\bis now\b",
-    r"\bwere removed\b",
     r"\bfor now\b",
-    r"\bin favor of\b",
-    r"\bbut wait\b",
-    r"\bactually,\b",
-    r"\bwait,\b",
-    r"\bah!",
+    r"\bhas been (?:removed|replaced|renamed|deprecated)\b",
 ]
 
 
@@ -96,7 +68,7 @@ def extract_comments(content: str, filename: str = "<unknown>") -> list[tuple[in
             continue
         segment = ast.get_source_segment(content, first.value)
         if segment is not None:
-            comments.update(enumerate(segment.splitlines(), start=first.value.lineno))
+            comments.update(enumerate(segment.split("\n"), start=first.value.lineno))
     return sorted(comments)
 
 
