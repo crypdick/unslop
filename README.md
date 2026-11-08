@@ -67,17 +67,18 @@ and `2` means invalid arguments or no matching text files.
 
 ## What it catches
 
-The detection script and skill reference a taxonomy of AI writing patterns organized by severity:
+The [taxonomy](skills/unslop/references/ai-writing-patterns.md) groups patterns by review priority:
 
-- **Tier 1 (dead giveaways):** vocabulary clusters ("delve", "tapestry", "pivotal", "robust"), copulative avoidance ("serves as" instead of "is"), formulaic significance framing ("is a testament to"), the "not just X, but Y" construction
-- **Tier 2 (strong signals):** promotional tone, dangling participle filler clauses, rule-of-three abuse, synonym cycling, vague attribution ("experts argue"), formulaic conclusions, and false ranges
-- **Tier 3 (contextual tells):** decorative punctuation and compression, manufactured sentence rhythm, pseudo-agency, unexplained jargon, decorative analogies, ambiguous references, stacked rhetorical questions, transition spam, and templated structure
+- **Tier 1:** stock vocabulary clusters, empty significance claims, and formulaic contrasts.
+- **Tier 2:** promotional tone, vague attribution, repetition, and over-explanation.
+- **Tier 3:** contextual cues such as decorative punctuation, jargon, and templated structure.
 
-The script's scores help you choose which files to review. The skill also looks for problems that regular expressions cannot judge, such as unsupported claims of importance and explanations that add no information. Findings are editing cues, not proof that AI wrote the text.
+Scores help prioritize review. The skill also judges meaning and voice, which
+regex cannot assess. Findings are editing cues, not proof of AI authorship.
 
 ## Development
 
-Prepare the development environment and run checks with these commands:
+Set up and check changes:
 
 ```shell
 uv sync --locked                       # install the locked development tools
@@ -89,17 +90,13 @@ uv run scripts/detect_slop.py -v docs/   # scan documentation
 
 The scanner also runs with plain Python 3.13 or later and has no runtime
 dependencies. Coverage includes command-line subprocesses. View the report in
-`htmlcov/index.html`. See [the design conventions](CONVENTIONS.md),
-[the architecture map](docs/ARCHITECTURE.md), and
-[the quality scorecard](docs/QUALITY.md) for development guidance.
+`htmlcov/index.html`. See [design conventions](CONVENTIONS.md) and
+[verification guidance](docs/QUALITY.md) for development guidance.
 
-If you have the `new-feature` command-line tool installed, `new-feature create NAME --no-agent`
-creates an isolated worktree and runs the setup configured in `pyproject.toml`.
-Replace `NAME` with your feature name. Change into the printed worktree path to
-work there. Each worktree has its own environment and test caches. No services
-or credentials need setup.
+For an isolated worktree, use `new-feature create NAME --no-agent` if installed.
+It runs the setup in `pyproject.toml`; work from the printed path.
 
-`evals/rewrite_cases.json` contains manual rewrite cases with facts that must survive and phrases the final edit should remove. Use it when changing the skill prompt or comparing model behavior.
+See [verification guidance](docs/QUALITY.md) for manual rewrite evaluation.
 
 ### Plugin releases
 
